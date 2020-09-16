@@ -1,0 +1,57 @@
+.city-deaths {
+    color: var(--quaternary-color);
+}
+
+.stats-chart {
+    padding-left: 100px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    margin: auto;
+    height: 60vh;
+    width: 80vw;
+}
+
+.card-container {
+    display: flex;
+    padding-right: 40px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+.card {
+    float: right;
+    background-color: var(--primary-color);
+}
+
+#facility-address {
+    color: var(--secondary-color);
+}
+
+.modal,
+.modal-footer {
+    background-color: var(--primary-color);
+}
+
+.modal-content,
+input {
+    color: white;
+}
+
+.modal-btn {
+    background-color: var(--secondary-color);
+}
+
+@media only screen and (max-width: 600px) {
+    .card-container {
+        display: inline-block;
+        padding-top: 50px;
+        padding-right: 0px;
+        padding-left: 50px;
+    }
+
+    .stats-chart {
+        height: 60vh;
+        width: 80vw;
+    }
+}
