@@ -61,3 +61,27 @@ var myChart = new Chart(ctx, {
     }
 });
 
+//hardcoding testing site API until we have a drop down select menu for city
+var getTestSites = function () {
+  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=POCS-2BFREy-Z7M-QAeIBS6kKAmxVe2jzAg0u8eAMDk&q=Covid&at=30.22,-92.02&limit=5"
+  fetch(testingApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // adds testing title to card
+      var cardTitle = document.createElement("span");
+      cardTitle.classList = "card-title";
+      cardTitle.textContent = data.items[0].title;
+      var cardContent = document.createElement("div");
+      cardContent.classList = "card-content white-text";
+      cardContent.appendChild(cardTitle);
+      var card = document.createElement("div");
+      card.classList = "card darken-1";
+      card.appendChild(cardContent);
+      var cardContainer = document.querySelector(".card-container");
+      cardContainer.appendChild(card);
+      // adds testing address to card
+
+    })
+}
