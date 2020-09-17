@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $('#modal1').modal();
-  
+
   $('input.autocomplete').autocomplete({
     data: {
       "Alameda": null,
@@ -95,7 +95,7 @@ var myChart = new Chart(ctx, {
              borderWidth: 1,
         }]
     },
-  
+
     options: {
         maintainAspectRatio: false,
         title: {
@@ -118,27 +118,40 @@ var myChart = new Chart(ctx, {
 
 //hardcoding testing site API until we have a drop down select menu for city
 var getTestSites = function () {
-  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=POCS-2BFREy-Z7M-QAeIBS6kKAmxVe2jzAg0u8eAMDk&q=Covid&at=30.22,-92.02&limit=5"
+  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=30.22,-92.02&limit=5"
   fetch(testingApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      // adds testing title to card
-      var cardTitle = document.createElement("span");
-      cardTitle.classList = "card-title";
-      cardTitle.textContent = data.items[0].title;
-      var cardContent = document.createElement("div");
-      cardContent.classList = "card-content white-text";
-      cardContent.appendChild(cardTitle);
-      var card = document.createElement("div");
-      card.classList = "card darken-1 col s10 m3 l2";
-      card.appendChild(cardContent);
-      var cardContainer = document.querySelector(".card-container");
-      cardContainer.appendChild(card);
-      // adds testing address to card
+      console.log(data)
+      for (var i = 0; i < 5; i++) {
+        // add testing title to card
+        var cardTitle = document.createElement("span");
+        cardTitle.classList = "card-title";
+        cardTitle.textContent = data.items[i].title;
+        // FIGURE OUT HOW TO DELETE FIRST PART OF STRING IN TITLES: Covid-19 Testing Site:    something like: cardTitle.textContent.split
+        var cardContent = document.createElement("div");
+        cardContent.classList = "card-content white-text";
+        cardContent.appendChild(cardTitle);
+        var card = document.createElement("div");
+        card.classList = "card darken-1 col s10 m3 l2";
+        card.appendChild(cardContent);
+        var cardContainer = document.querySelector(".card-container");
 
-    })
+        // add testing address to card
+        var cardAddress = document.createElement("a");
+        cardAddress.classList = "facility-address";
+        cardAddress.id = "facility-address";
+        cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        var cardBody = document.createElement("div");
+        cardBody.classList = "card-action";
+        cardBody.appendChild(cardAddress);
+        card.appendChild(cardBody);
+        cardContainer.appendChild(card);
+      }
+    });
 }
 
 getTestSites();
+
