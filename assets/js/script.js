@@ -135,7 +135,7 @@ var getTestSites = function () {
         cardContent.classList = "card-content white-text";
         cardContent.appendChild(cardTitle);
         var card = document.createElement("div");
-        card.classList = "card darken-1 col s10 m3 l2";
+        card.classList = "card darken-1 col s112 m5 l2";
         card.appendChild(cardContent);
         var cardContainer = document.querySelector(".card-container");
 
