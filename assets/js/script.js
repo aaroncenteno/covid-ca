@@ -3,9 +3,64 @@ $(document).ready(function () {
   
   $('input.autocomplete').autocomplete({
     data: {
-      "Apple": null,
-      "Microsoft": null,
-      "Google": 'https://placehold.it/250x250'
+      "Alameda": null,
+      "Alpine": null,
+      "Amador": null,
+      "Butte": null,
+      "Calaveras": null,
+      "Colusa": null,
+      "Contra Costa": null,
+      "Del Norte": null,
+      "El Dorado": null,
+      "Fresno": null,
+      "Glenn": null,
+      "Humboldt": null,
+      "Imperial": null,
+      "Inyo": null,
+      "Kern": null,
+      "Kings": null,
+      "Lake": null,
+      "Lassen": null,
+      "Los Angeles": null,
+      "Madera": null,
+      "Marin": null,
+      "Mariposa": null,
+      "Mendocino": null,
+      "Merced": null,
+      "Modoc": null,
+      "Mono": null,
+      "Monterey": null,
+      "Napa": null,
+      "Nevada": null,
+      "Orange": null,
+      "Placer": null,
+      "Plumas": null,
+      "Riverside": null,
+      "Sacramento": null,
+      "San Benito": null,
+      "San Bernardino": null,
+      "San Diego": null,
+      "San Francisco": null,
+      "San Joaquin": null,
+      "San Luis Obispo": null,
+      "San Mateo": null,
+      "Santa Barbara": null,
+      "Santa Clara": null,
+      "Santa Cruz": null,
+      "Shasta": null,
+      "Sierra": null,
+      "Siskiyou": null,
+      "Solano": null,
+      "Sonoma": null,
+      "Stanislaus": null,
+      "Sutter": null,
+      "Tehama": null,
+      "Trinity": null,
+      "Tulare": null,
+      "Tuolumne": null,
+      "Ventura": null,
+      "Yolo": null,
+      "Yuba": null,
     },
   });
 
@@ -77,7 +132,7 @@ var getTestSites = function () {
       cardContent.classList = "card-content white-text";
       cardContent.appendChild(cardTitle);
       var card = document.createElement("div");
-      card.classList = "card darken-1";
+      card.classList = "card darken-1 col s10 m3 l2";
       card.appendChild(cardContent);
       var cardContainer = document.querySelector(".card-container");
       cardContainer.appendChild(card);
@@ -85,3 +140,5 @@ var getTestSites = function () {
 
     })
 }
+
+getTestSites();
