@@ -6,8 +6,7 @@ var cityDeathsEl = document.querySelector(".city-deaths");
 var cityHeaderEl = document.querySelector(".city-header");
 var cardContainer = document.querySelector(".card-container");
 var cityName = cityInputEl.value.trim();
-
-// array to store cities in local storage
+var cityList = document.querySelector(".collection");
 var cities = [];
 
 $(document).ready(function () {
@@ -97,6 +96,15 @@ var searchButtonHandler = function (event) {
   }
 };
 
+var searchHistory = function (cityName) {
+  
+  if (cityName) {
+    cityInputEl.value = "";
+    cardContainer.textContent = "";
+    getCoordinates(cityName);
+    getResults(cityName);
+  }
+};
 //function to delete city history
 var deleteButtonHandler = function () {
   var cityItem = $(".collection-item");
@@ -112,7 +120,6 @@ var appendCity = function (cityName) {
     var cityItem = document.createElement("li");
     cityItem.classList = "collection-item";
     cityItem.textContent = cityName;
-    var cityList = document.querySelector(".collection");
     cityList.appendChild(cityItem);
   }
 }
@@ -134,7 +141,7 @@ var loadCity = function () {
     var cityItem = document.createElement("li");
     cityItem.classList = "collection-item";
     cityItem.textContent = cities[i];
-    var cityList = document.querySelector(".collection");
+    //var cityList = document.querySelector(".collection");
     cityList.appendChild(cityItem);
   }
 }
@@ -241,6 +248,9 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     });
 }
 
+$(".collection").on("click", "li", function () {
+  searchHistory($(this).text());
+})
 searchButtonEl.addEventListener("click", searchButtonHandler);
 deleteButtonEl.addEventListener("click", deleteButtonHandler)
 loadCity();
