@@ -161,7 +161,7 @@ var getTestSites = function () {
         // add testing title to card
         var cardTitle = document.createElement("span");
         cardTitle.classList = "card-title";
-        cardTitle.textContent = data.items[i].title;
+        cardTitle.textContent = data.items[i].title.split(":")[1];
         // FIGURE OUT HOW TO DELETE FIRST PART OF STRING IN TITLES: Covid-19 Testing Site:    something like: cardTitle.textContent.split
         var cardContent = document.createElement("div");
         cardContent.classList = "card-content white-text";
