@@ -30,9 +30,8 @@
         <!-- List of Searched Cities -->
         <ul class="collection">
           <li class="collection-item">Los Angeles</li>
-          <li class="collection-item">San Francisco</li>
-          <li class="collection-item">Fresno</li>
-          <li class="collection-item">San Diego</li>
+          <p class="city-cases">Covid Cases: 45,000</p>
+          <p class="city-deaths">Covid Deaths: 1,500</p>
         </ul>
 
         <!-- Clear Local Storage Button -->
@@ -43,15 +42,15 @@
 
       <!-- Searched City Container -->
 
-      <div class=" current-city col s12 m9 l10">
+      <div class=" current-city col s12 m10 l10">
         <!-- City Statistics -->
-        <div class="city-stats col s12 m9 l5">
+        <div class="city-stats col s12 m5 l4">
           <h3 class="city-header">Los Angeles</h3>
           <p class="city-cases">Covid Cases: 45,000</p>
           <p class="city-deaths">Covid Deaths: 1,500</p>
         </div>
         <!-- City Chart -->
-        <div class="stats-chart col s12 m9 l6">
+        <div class="stats-chart col s12 m7 l7">
           <canvas id="myChart"></canvas>
         </div>
       </div>
@@ -117,11 +116,11 @@
       <div class="modal-content">
         <h4>Enter a city in California:</h4>
         <div class="input-field">
-        <input type="text" id="city-search" class="autocomplete">
-      </div>
+          <input type="text" id="city-search" class="autocomplete">
+        </div>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn">Search</a>
+        <a id="searchbutton" href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn">Search</a>
       </div>
     </div>
 
