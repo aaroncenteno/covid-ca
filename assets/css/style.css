@@ -1,8 +1,8 @@
 :root {
     --primary-color: #006064;
     --secondary-color: #80cbc4;
-    --tertiary-color: #9a1778;
-    --quaternary-color: #9a1778;
+    --tertiary-color: #c5339ee7;
+    --quaternary-color: #860c66;
     --quinary-color: #0d47a1;
 }
 
@@ -28,6 +28,12 @@ aside {
     padding: 20px;
 }
 
+.city-list {
+    height: 200px;
+    overflow: hidden; 
+    overflow-y: scroll;
+}
+
 .search-btn {
     margin-top: 20px;
     background-color: var(--secondary-color);
@@ -49,20 +55,20 @@ aside {
 }
 
 .clear-btn {
-    background-color: var(--tertiary-color);
+    background-color: var(--quaternary-color);
 }
 
 .clear-btn:hover {
-    background-color: var(--quaternary-color) ;
+    background-color: var(--tertiary-color) ;
+}
+
+.clear-btn:focus {
+    background-color: var(--quaternary-color);
 }
 
 /* Aside Styling Ends */
 
 /* Searched City Styling */
-
-.current-city {
-    
-}
 
 .city-stats {
     /* width: 50%; */
@@ -100,6 +106,11 @@ aside {
     width: 80vw;
 }
 
+.facilities-header {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
 .card-container {
     display: flex;
     padding-right: 40px;
@@ -133,6 +144,7 @@ input {
 
 
 @media only screen and (max-width: 925px) {
+
     .current-city {
         display: inline-block;
     }
@@ -180,7 +192,9 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
-
+    .city-list {
+        text-align: center;
+    }
     .stats-chart {
         height: 60vh;
         width: 80vw;
