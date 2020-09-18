@@ -21,37 +21,40 @@
     <a href="#" class="brand-logo center">COVID-19 California</a>
   </nav>
   <div class="row">
-    <!-- Add City and Searched City History -->
-    <aside class="col s12 m2 l2">
-      <!-- Add City Button -->
-      <button id="add-city-btn" class="waves-effect waves-light btn search-btn modal-trigger" href="#modal1">
-        <i class="fas fa-search-plus"></i> Add a City
-      </button>
-      <!-- List of Searched Cities -->
-      <ul class="collection">
-        <li class="collection-item">Los Angeles</li>
-      </ul>
+      <!-- Add City and Searched City History -->
+      <aside class="col s12 m3 l2">
+        <!-- Add City Button -->
+        <button id="add-city-btn" class="waves-effect waves-light btn search-btn modal-trigger" href="#modal1">
+          <i class="fas fa-search-plus"></i> Add a City
+        </button>
+        <!-- List of Searched Cities -->
+        <ul class="collection">
+          <li class="collection-item">Los Angeles</li>
+          <p class="city-cases">Covid Cases: 45,000</p>
+          <p class="city-deaths">Covid Deaths: 1,500</p>
+        </ul>
 
-      <!-- Clear Local Storage Button -->
-      <button id="clear-storage-btn" class="waves-effect waves-light btn clear-btn">
-        Delete City History
-      </button>
-    </aside>
+        <!-- Clear Local Storage Button -->
+        <button id="clear-storage-btn" class="waves-effect waves-light btn clear-btn">
+          Delete City History
+        </button>
+      </aside>
 
-    <!-- Searched City Container -->
+      <!-- Searched City Container -->
 
-    <div class="col s12 m10 l10">
-      <!-- City Statistics -->
-      <div class="city-stats col s12 m5 l4">
-        <h3 class="city-header">Los Angeles</h3>
-        <p class="city-cases">Covid Cases: 45,000</p>
-        <p class="city-deaths">Covid Deaths: 1,500</p>
+      <div class=" current-city col s12 m10 l10">
+        <!-- City Statistics -->
+        <div class="city-stats col s12 m5 l4">
+          <h3 class="city-header">Los Angeles</h3>
+          <p class="city-cases">Covid Cases: 45,000</p>
+          <p class="city-deaths">Covid Deaths: 1,500</p>
+        </div>
+        <!-- City Chart -->
+        <div class="stats-chart col s12 m7 l7">
+          <canvas id="myChart"></canvas>
+        </div>
       </div>
-      <!-- City Chart -->
-      <div class="stats-chart col s12 m7 l7">
-        <canvas id="myChart"></canvas>
-      </div>
-    </div>
+
 
 
     <!-- Facilities Cards -->
