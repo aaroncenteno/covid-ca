@@ -198,3 +198,24 @@ var getTestSites = function (cityLatitude, cityLongitude) {
       }
     });
 }
+var cityCasesEl=document.querySelector(".city-cases");
+var cityDeathsEl=document.querySelector(".city-deaths");
+var cityHeaderEl=document.querySelector(".city-header");
+
+var getTestResults = function () {
+  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName;
+    fetch(resultsApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var i= data.result.records.length - 1;
+      cityHeaderEl.textContent =  data.result.records[i].county;
+      cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
+      cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+      
+    });
+}
+
+
