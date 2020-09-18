@@ -8,9 +8,13 @@ var cardContainer = document.querySelector(".card-container");
 var cityName = cityInputEl.value.trim();
 var cityList = document.querySelector(".collection");
 var cities = [];
+var dataBaseInfo = [];
 
 $(document).ready(function () {
   $('#modal1').modal();
+  $('#modal2').modal();
+  $('#modal3').modal();
+
 
   $('input.autocomplete').autocomplete({
     data: {
@@ -74,6 +78,8 @@ $(document).ready(function () {
       "Yuba": null,
     },
   });
+
+
 });
 
 //function to grab user's city search choice
@@ -146,43 +152,6 @@ var loadCity = function () {
   }
 }
 
-var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-    datasets: [{
-      label: '# of Cases',
-      data: [50, 90, 150, 300, 450, 500, 1000, 1250, 1600, 1900, 2000,],
-      backgroundColor:
-        'rgba(128, 203, 196, 0.4)',
-      borderColor:
-        'rgba(0, 96, 100, 1)',
-      borderWidth: 1,
-    }]
-  },
-
-  options: {
-    maintainAspectRatio: false,
-    title: {
-      display: true,
-      text: 'COVID-19 Cases',
-      fontSize: 25,
-    },
-    configuration: {
-      maintainAspectRatio: false
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
-
 // fetch and show Covid Case and Deaths for selected County
 var getResults = function (cityName) {
   var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName;
@@ -191,10 +160,58 @@ var getResults = function (cityName) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data);
+      dataBaseInfo = data.result.records;
+      console.log(dataBaseInfo);
       var i = data.result.records.length - 1;
       cityHeaderEl.textContent = data.result.records[i].county;
       cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
       cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+      // var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
+
+      // Chart Creation
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var useData = [];
+      var date = []
+      for  (i = 0; i < 12; i++) {
+        date.push(dataBaseInfo[i].date)
+        useData.push(dataBaseInfo[i].totalcountconfirmed);
+      }
+      console.log(useData);
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: date,
+          datasets: [{
+            label: '# of Cases',
+            data: useData,
+            backgroundColor:
+              'rgba(128, 203, 196, 0.4)',
+            borderColor:
+              'rgba(0, 96, 100, 1)',
+            borderWidth: 1,
+          }]
+        },
+
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'COVID-19 Cases',
+            fontSize: 25,
+          },
+          configuration: {
+            maintainAspectRatio: false
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
     });
 }
 
