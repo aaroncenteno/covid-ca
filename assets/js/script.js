@@ -1,3 +1,10 @@
+var searchButtonEl = document.querySelector("#searchbutton");
+var cityInputEl = document.querySelector("#city-search");
+var cityCasesEl = document.querySelector(".city-cases");
+var cityDeathsEl = document.querySelector(".city-deaths");
+var cityHeaderEl = document.querySelector(".city-header");
+var cardContainer = document.querySelector(".card-container");
+
 // array to store cities in local storage
 var cities = [];
 
@@ -69,9 +76,6 @@ $(document).ready(function () {
 });
 
 //function to grab user's city search choice
-var searchButtonEl = document.querySelector("#searchbutton");
-var cityInputEl = document.querySelector("#city-search");
-
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
   event.preventDefault();
@@ -80,7 +84,8 @@ var searchButtonHandler = function (event) {
   //add cityName to list
   if (cityName) {
     //reset cityInput
-    cityInputEl.value = ""
+    cityInputEl.value = "";
+    cardContainer.textContent = "";
     appendCity(cityName);
     getCoordinates(cityName);
     getResults(cityName);
@@ -148,6 +153,21 @@ var myChart = new Chart(ctx, {
   }
 });
 
+// fetch and show Covid Case and Deaths for selected County
+var getResults = function (cityName) {
+  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName;
+  fetch(resultsApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var i = data.result.records.length - 1;
+      cityHeaderEl.textContent = data.result.records[i].county;
+      cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
+      cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+    });
+}
+
 //FUNCTION to convert CITYNAME into Long/Lat coordinates
 var getCoordinates = function (cityName) {
   console.log(cityName);
@@ -173,11 +193,10 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     })
     .then(function (data) {
       for (var i = 0; i < 5; i++) {
-        // add testing center title to cards, add testing address to cards
+        //add testing center title to cards, add testing address to cards
         var cardTitle = document.createElement("span");
         var cardContent = document.createElement("div");
         var card = document.createElement("div");
-        var cardContainer = document.querySelector(".card-container");
         var cardAddress = document.createElement("a");
         var cardBody = document.createElement("div");
         cardBody.classList = "card-action";
@@ -197,25 +216,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
       }
-    });
-}
-
-// fetch and show Covid Case and Deaths for selected County
-var cityCasesEl=document.querySelector(".city-cases");
-var cityDeathsEl=document.querySelector(".city-deaths");
-var cityHeaderEl=document.querySelector(".city-header");
-
-var getResults = function (cityName) {
-  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName;
-    fetch(resultsApiUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      var i= data.result.records.length - 1;
-      cityHeaderEl.textContent =  data.result.records[i].county;
-      cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
-      cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
     });
 }
 
