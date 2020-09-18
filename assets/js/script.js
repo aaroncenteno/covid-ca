@@ -1,3 +1,6 @@
+// array to store cities in local storage
+var cities = [];
+
 $(document).ready(function () {
   $('#modal1').modal();
 
@@ -63,73 +66,116 @@ $(document).ready(function () {
       "Yuba": null,
     },
   });
+});
 
-//   var data = {
-//     resource_id: 'b6648a0d-ff0a-4111-b80b-febda2ac9e09', // the resource id
-//     limit: 5, // get 5 results
-//     q: 'jones' // query for 'jones'
-//   };
-//   $.ajax({
-//     url: '',
-//     data: data,
-//     dataType: 'jsonp',
-//     success: function(data) {
-//       alert('Total results found: ' + data.result.total)
-//     }
-//   });
-})
+//function to grab user's city search choice
+var searchButtonEl = document.querySelector("#searchbutton");
+var cityInputEl = document.querySelector("#city-search");
+
+var searchButtonHandler = function (event) {
+  //prevent browser from sending user's input data to a URL
+  event.preventDefault();
+  //get value
+  var cityName = cityInputEl.value.trim();
+  //add cityName to list
+  if (cityName) {
+    //reset cityInput
+    cityInputEl.value = ""
+    appendCity(cityName);
+    getCoordinates(cityName);
+  }
+};
+
+//function to add city to list
+var appendCity = function (cityName) {
+  if (cities.indexOf(cityName) === -1) {
+    //append to list
+    var cityItem = document.createElement("li");
+    cityItem.classList = "collection-item";
+    cityItem.textContent = cityName;
+    var cityList = document.querySelector(".collection");
+    cityList.appendChild(cityItem);
+
+    //add to local storage
+    saveCity(cityName);
+  }
+}
+
+//function to add city to local storage
+var saveCity = function (cityName) {
+  //array for old searches
+  cities.push(cityName);
+  localStorage.setItem("cities", JSON.stringify(cities));
+};
+
+searchButtonEl.addEventListener("click", searchButtonHandler);
 
 var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-        datasets: [{
-            label: '# of Cases',
-            data: [50, 90, 150, 300, 450, 500, 1000, 1250, 1600, 1900, 2000,],
-            backgroundColor: 
-                'rgba(128, 203, 196, 0.4)',
-            borderColor: 
-                'rgba(0, 96, 100, 1)',
-             borderWidth: 1,
-        }]
-    },
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+    datasets: [{
+      label: '# of Cases',
+      data: [50, 90, 150, 300, 450, 500, 1000, 1250, 1600, 1900, 2000,],
+      backgroundColor:
+        'rgba(128, 203, 196, 0.4)',
+      borderColor:
+        'rgba(0, 96, 100, 1)',
+      borderWidth: 1,
+    }]
+  },
 
-    options: {
-        maintainAspectRatio: false,
-        title: {
-            display: true,
-            text: 'COVID-19 Cases',
-            fontSize: 25,
-        },
-        configuration: {
-            maintainAspectRatio: false
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+  options: {
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: 'COVID-19 Cases',
+      fontSize: 25,
+    },
+    configuration: {
+      maintainAspectRatio: false
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
         }
+      }]
     }
+  }
 });
 
+//FUNCTION to convert CITYNAME into Long/Lat coordinates
+var getCoordinates = function (cityName) {
+  console.log(cityName);
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+  fetch(coordinatesApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var cityLatitude = data.results[0].geometry.location.lat;
+      var cityLongitude = data.results[0].geometry.location.lng;
+      getTestSites(cityLatitude, cityLongitude);
+    })
+
+}
+
 //hardcoding testing site API until we have a drop down select menu for city
-var getTestSites = function () {
-  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=30.22,-92.02&limit=5"
+var getTestSites = function (cityLatitude, cityLongitude) {
+  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cityLatitude + "," + cityLongitude + "&limit=5";
   fetch(testingApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
       for (var i = 0; i < 5; i++) {
         // add testing title to card
         var cardTitle = document.createElement("span");
         cardTitle.classList = "card-title";
-        cardTitle.textContent = data.items[i].title;
+        cardTitle.textContent = data.items[i].title.split(":")[1];
         // FIGURE OUT HOW TO DELETE FIRST PART OF STRING IN TITLES: Covid-19 Testing Site:    something like: cardTitle.textContent.split
         var cardContent = document.createElement("div");
         cardContent.classList = "card-content white-text";
