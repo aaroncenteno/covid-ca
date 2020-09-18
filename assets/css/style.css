@@ -140,6 +140,7 @@ input {
 
 
 @media only screen and (max-width: 925px) {
+
     .current-city {
         display: inline-block;
     }
