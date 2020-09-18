@@ -1,4 +1,5 @@
 var searchButtonEl = document.querySelector("#searchbutton");
+var deleteButtonEl = document.querySelector("#clear-storage-btn")
 var cityInputEl = document.querySelector("#city-search");
 var cityCasesEl = document.querySelector(".city-cases");
 var cityDeathsEl = document.querySelector(".city-deaths");
@@ -96,6 +97,14 @@ var searchButtonHandler = function (event) {
   }
 };
 
+//function to delete city history
+var deleteButtonHandler = function () {
+  var cityItem = $(".collection-item");
+  cityItem.remove();
+  cities = [];
+  localStorage.setItem("cities", JSON.stringify(cities));
+}
+
 //function to add city to list
 var appendCity = function (cityName) {
   if (cities.indexOf(cityName) === -1) {
@@ -129,8 +138,6 @@ var loadCity = function () {
     cityList.appendChild(cityItem);
   }
 }
-
-searchButtonEl.addEventListener("click", searchButtonHandler);
 
 var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -234,4 +241,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     });
 }
 
+searchButtonEl.addEventListener("click", searchButtonHandler);
+deleteButtonEl.addEventListener("click", deleteButtonHandler)
 loadCity();
