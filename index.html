@@ -56,6 +56,9 @@
 
 
     <!-- Facilities Cards -->
+    <div class="row show facilities-header">
+      <h2 class="col">Testing Facilities</h2>
+    </div>
     <div class="row card-container">
       <!-- Card 1 -->
       <!-- <div class="col s10 m2 l2">
@@ -109,7 +112,7 @@
 
     </div>
 
-    <!-- Modal -->
+    <!-- Search Modal -->
     <div id="modal1" class="modal">
       <div class="modal-content">
         <h4>Enter a city in California:</h4>
@@ -121,6 +124,32 @@
         <a id="searchbutton" href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn">Search</a>
       </div>
     </div>
+
+    <!-- Map/Navigate Modal -->
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4>Navigate to this facility</h4>
+        <div class="map" height="400" width="400">
+          <!-- Add Map Here -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="cancel-button" href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn" style="float: left;">Cancel</a>
+        <a id="navigate-button" href="#!" class="waves-effect waves-green btn-flat modal-btn">Navigate</a>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="modal3" class="modal">
+      <div class="modal-content">
+        <h4>Error: Server Connection</h4>
+      </div>
+      <div class="modal-footer">
+        <a id="cancel-button" href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn" style="float: left;">Cancel</a>
+      </div>
+    </div>
+
+
 
   </div>
 

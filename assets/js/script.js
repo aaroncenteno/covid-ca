@@ -3,6 +3,9 @@ var cities = [];
 
 $(document).ready(function () {
   $('#modal1').modal();
+  $('#modal2').modal();
+  $('#modal3').modal();
+
 
   $('input.autocomplete').autocomplete({
     data: {
