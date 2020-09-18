@@ -19,6 +19,12 @@ aside {
     padding: 20px;
 }
 
+.city-list {
+    height: 200px;
+    overflow: hidden; 
+    overflow-y: scroll;
+}
+
 .search-btn {
     margin-top: 20px;
     background-color: var(--secondary-color);
@@ -54,6 +60,7 @@ aside {
 .city-stats {
     /* width: 50%; */
     padding-left: 50px;
+    margin-top: 30px;
 }
 
 .city-header {
@@ -77,11 +84,11 @@ aside {
 }
 
 .stats-chart {
-    padding-left: 100px;
+    /* padding-left: 100px; */
     height: 100%;
     width: 100%;
     position: relative;
-    margin: auto;
+    margin-top: 30px;
     height: 60vh;
     width: 80vw;
 }
@@ -116,14 +123,59 @@ input {
     background-color: var(--secondary-color);
 }
 
-@media only screen and (max-width: 600px) {
-    .card-container {
+
+
+@media only screen and (max-width: 925px) {
+    .current-city {
         display: inline-block;
-        padding-top: 50px;
-        padding-right: 0px;
-        padding-left: 50px;
     }
 
+    .city-stats {
+        text-align: center;
+    }
+
+    .stats-chart {
+        margin-top: 50px;
+    }
+
+    .card-container {
+        display: inline-block;
+        margin: 0 150px 0 150px;
+    }
+
+    .card {
+        margin: 20px;
+        height: 475px;
+    }
+
+    .stats-chart {
+        height: 60vh;
+        width: 80vw;
+    }
+}
+
+@media only screen and (max-width: 775px) {
+    .card-container {
+        display: inline-block;
+        margin: 40px 40px 40px 40px;
+        width: 100%;
+    }
+
+    .stats-chart {
+        height: 40vh;
+        width: 80vw;
+        margin-left: 200px;
+    }
+
+    .card {
+        height: 450px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .city-list {
+        text-align: center;
+    }
     .stats-chart {
         height: 60vh;
         width: 80vw;
