@@ -1,3 +1,10 @@
+var searchButtonEl = document.querySelector("#searchbutton");
+var cityInputEl = document.querySelector("#city-search");
+var cityCasesEl = document.querySelector(".city-cases");
+var cityDeathsEl = document.querySelector(".city-deaths");
+var cityHeaderEl = document.querySelector(".city-header");
+var cardContainer = document.querySelector(".card-container");
+
 // array to store cities in local storage
 var cities = [];
 
@@ -72,20 +79,19 @@ $(document).ready(function () {
 });
 
 //function to grab user's city search choice
-var searchButtonEl = document.querySelector("#searchbutton");
-var cityInputEl = document.querySelector("#city-search");
-
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
   event.preventDefault();
   //get value
   var cityName = cityInputEl.value.trim();
-  console.log(cityName);
   //add cityName to list
   if (cityName) {
     //reset cityInput
-    cityInputEl.value = ""
+    cityInputEl.value = "";
+    cardContainer.textContent = "";
     appendCity(cityName);
+    getCoordinates(cityName);
+    getResults(cityName);
   }
 };
 
@@ -101,7 +107,6 @@ var appendCity = function (cityName) {
 
     //add to local storage
     saveCity(cityName);
-
   }
 }
 
@@ -109,7 +114,6 @@ var appendCity = function (cityName) {
 var saveCity = function (cityName) {
   //array for old searches
   cities.push(cityName);
-  console.log(cities);
   localStorage.setItem("cities", JSON.stringify(cities));
 };
 
@@ -152,35 +156,65 @@ var myChart = new Chart(ctx, {
   }
 });
 
+// fetch and show Covid Case and Deaths for selected County
+var getResults = function (cityName) {
+  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName;
+  fetch(resultsApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var i = data.result.records.length - 1;
+      cityHeaderEl.textContent = data.result.records[i].county;
+      cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
+      cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+    });
+}
+
+//FUNCTION to convert CITYNAME into Long/Lat coordinates
+var getCoordinates = function (cityName) {
+  console.log(cityName);
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+  fetch(coordinatesApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var cityLatitude = data.results[0].geometry.location.lat;
+      var cityLongitude = data.results[0].geometry.location.lng;
+      getTestSites(cityLatitude, cityLongitude);
+    })
+
+}
+
 //hardcoding testing site API until we have a drop down select menu for city
-var getTestSites = function () {
-  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=30.22,-92.02&limit=5"
+var getTestSites = function (cityLatitude, cityLongitude) {
+  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cityLatitude + "," + cityLongitude + "&limit=5";
   fetch(testingApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       for (var i = 0; i < 5; i++) {
-        // add testing title to card
+        //add testing center title to cards, add testing address to cards
         var cardTitle = document.createElement("span");
-        cardTitle.classList = "card-title";
-        cardTitle.textContent = data.items[i].title.split(":")[1];
-        // FIGURE OUT HOW TO DELETE FIRST PART OF STRING IN TITLES: Covid-19 Testing Site:    something like: cardTitle.textContent.split
         var cardContent = document.createElement("div");
-        cardContent.classList = "card-content white-text";
-        cardContent.appendChild(cardTitle);
         var card = document.createElement("div");
-        card.classList = "card darken-1 col s112 m5 l2";
-        card.appendChild(cardContent);
-        var cardContainer = document.querySelector(".card-container");
-
-        // add testing address to card
         var cardAddress = document.createElement("a");
+        var cardBody = document.createElement("div");
+        cardBody.classList = "card-action";
         cardAddress.classList = "facility-address";
         cardAddress.id = "facility-address";
         cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
-        var cardBody = document.createElement("div");
-        cardBody.classList = "card-action";
+        cardAddress.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardAddress.textContent);
+        cardAddress.setAttribute("target", "_blank")
+        cardTitle.classList = "card-title";
+        cardTitle.textContent = data.items[i].title.split(":")[1];
+        cardContent.classList = "card-content white-text";
+        card.classList = "card darken-1 col s112 m5 l2";
+        //append card title and address to the page
+        cardContent.appendChild(cardTitle);
+        card.appendChild(cardContent);
         cardBody.appendChild(cardAddress);
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
@@ -188,4 +222,3 @@ var getTestSites = function () {
     });
 }
 
-getTestSites();
