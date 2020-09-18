@@ -1,8 +1,8 @@
 :root {
     --primary-color: #006064;
     --secondary-color: #80cbc4;
-    --tertiary-color: #9a1778;
-    --quaternary-color: #9a1778;
+    --tertiary-color: #c5339ee7;
+    --quaternary-color: #860c66;
     --quinary-color: #0d47a1;
 }
 
@@ -55,11 +55,15 @@ aside {
 }
 
 .clear-btn {
-    background-color: var(--tertiary-color);
+    background-color: var(--quaternary-color);
 }
 
 .clear-btn:hover {
-    background-color: var(--quaternary-color) ;
+    background-color: var(--tertiary-color) ;
+}
+
+.clear-btn:focus {
+    background-color: var(--quaternary-color);
 }
 
 /* Aside Styling Ends */

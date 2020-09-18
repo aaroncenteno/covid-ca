@@ -6,9 +6,9 @@ var cityDeathsEl = document.querySelector(".city-deaths");
 var cityHeaderEl = document.querySelector(".city-header");
 var cardContainer = document.querySelector(".card-container");
 var cityName = cityInputEl.value.trim();
-
-// array to store cities in local storage
+var cityList = document.querySelector(".collection");
 var cities = [];
+var dataBaseInfo = [];
 
 $(document).ready(function () {
   $('#modal1').modal();
@@ -78,6 +78,8 @@ $(document).ready(function () {
       "Yuba": null,
     },
   });
+
+
 });
 
 //function to grab user's city search choice
@@ -100,6 +102,15 @@ var searchButtonHandler = function (event) {
   }
 };
 
+var searchHistory = function (cityName) {
+  
+  if (cityName) {
+    cityInputEl.value = "";
+    cardContainer.textContent = "";
+    getCoordinates(cityName);
+    getResults(cityName);
+  }
+};
 //function to delete city history
 var deleteButtonHandler = function () {
   var cityItem = $(".collection-item");
@@ -115,7 +126,6 @@ var appendCity = function (cityName) {
     var cityItem = document.createElement("li");
     cityItem.classList = "collection-item";
     cityItem.textContent = cityName;
-    var cityList = document.querySelector(".collection");
     cityList.appendChild(cityItem);
   }
 }
@@ -137,47 +147,10 @@ var loadCity = function () {
     var cityItem = document.createElement("li");
     cityItem.classList = "collection-item";
     cityItem.textContent = cities[i];
-    var cityList = document.querySelector(".collection");
+    //var cityList = document.querySelector(".collection");
     cityList.appendChild(cityItem);
   }
 }
-
-var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-    datasets: [{
-      label: '# of Cases',
-      data: [50, 90, 150, 300, 450, 500, 1000, 1250, 1600, 1900, 2000,],
-      backgroundColor:
-        'rgba(128, 203, 196, 0.4)',
-      borderColor:
-        'rgba(0, 96, 100, 1)',
-      borderWidth: 1,
-    }]
-  },
-
-  options: {
-    maintainAspectRatio: false,
-    title: {
-      display: true,
-      text: 'COVID-19 Cases',
-      fontSize: 25,
-    },
-    configuration: {
-      maintainAspectRatio: false
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
 
 // fetch and show Covid Case and Deaths for selected County
 var getResults = function (cityName) {
@@ -187,10 +160,58 @@ var getResults = function (cityName) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data);
+      dataBaseInfo = data.result.records;
+      console.log(dataBaseInfo);
       var i = data.result.records.length - 1;
       cityHeaderEl.textContent = data.result.records[i].county;
       cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
       cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+      // var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
+
+      // Chart Creation
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var useData = [];
+      var date = []
+      for  (i = 0; i < 12; i++) {
+        date.push(dataBaseInfo[i].date)
+        useData.push(dataBaseInfo[i].totalcountconfirmed);
+      }
+      console.log(useData);
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: date,
+          datasets: [{
+            label: '# of Cases',
+            data: useData,
+            backgroundColor:
+              'rgba(128, 203, 196, 0.4)',
+            borderColor:
+              'rgba(0, 96, 100, 1)',
+            borderWidth: 1,
+          }]
+        },
+
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'COVID-19 Cases',
+            fontSize: 25,
+          },
+          configuration: {
+            maintainAspectRatio: false
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
     });
 }
 
@@ -244,6 +265,9 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     });
 }
 
+$(".collection").on("click", "li", function () {
+  searchHistory($(this).text());
+})
 searchButtonEl.addEventListener("click", searchButtonHandler);
 deleteButtonEl.addEventListener("click", deleteButtonHandler)
 loadCity();
