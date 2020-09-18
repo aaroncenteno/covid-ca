@@ -1,9 +1,11 @@
 var searchButtonEl = document.querySelector("#searchbutton");
+var deleteButtonEl = document.querySelector("#clear-storage-btn")
 var cityInputEl = document.querySelector("#city-search");
 var cityCasesEl = document.querySelector(".city-cases");
 var cityDeathsEl = document.querySelector(".city-deaths");
 var cityHeaderEl = document.querySelector(".city-header");
 var cardContainer = document.querySelector(".card-container");
+var cityName = cityInputEl.value.trim();
 
 // array to store cities in local storage
 var cities = [];
@@ -86,14 +88,25 @@ var searchButtonHandler = function (event) {
   var cityName = cityInputEl.value.trim();
   //add cityName to list
   if (cityName) {
+    //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
     cityInputEl.value = "";
     cardContainer.textContent = "";
     appendCity(cityName);
+    //add to local storage
+    saveCity(cityName);
     getCoordinates(cityName);
     getResults(cityName);
   }
 };
+
+//function to delete city history
+var deleteButtonHandler = function () {
+  var cityItem = $(".collection-item");
+  cityItem.remove();
+  cities = [];
+  localStorage.setItem("cities", JSON.stringify(cities));
+}
 
 //function to add city to list
 var appendCity = function (cityName) {
@@ -104,9 +117,6 @@ var appendCity = function (cityName) {
     cityItem.textContent = cityName;
     var cityList = document.querySelector(".collection");
     cityList.appendChild(cityItem);
-
-    //add to local storage
-    saveCity(cityName);
   }
 }
 
@@ -117,7 +127,20 @@ var saveCity = function (cityName) {
   localStorage.setItem("cities", JSON.stringify(cities));
 };
 
-searchButtonEl.addEventListener("click", searchButtonHandler);
+//function to load cities from local storage on page refresh
+var loadCity = function () {
+  cities = JSON.parse(localStorage.getItem("cities"));
+  if (cities === null) {
+    cities = [];
+  };
+  for (var i = 0; i < cities.length; i++) {
+    var cityItem = document.createElement("li");
+    cityItem.classList = "collection-item";
+    cityItem.textContent = cities[i];
+    var cityList = document.querySelector(".collection");
+    cityList.appendChild(cityItem);
+  }
+}
 
 var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -173,7 +196,6 @@ var getResults = function (cityName) {
 
 //FUNCTION to convert CITYNAME into Long/Lat coordinates
 var getCoordinates = function (cityName) {
-  console.log(cityName);
   var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
   fetch(coordinatesApiUrl)
     .then(function (response) {
@@ -222,3 +244,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     });
 }
 
+searchButtonEl.addEventListener("click", searchButtonHandler);
+deleteButtonEl.addEventListener("click", deleteButtonHandler)
+loadCity();
