@@ -77,12 +77,12 @@ var searchButtonHandler = function (event) {
   event.preventDefault();
   //get value
   var cityName = cityInputEl.value.trim();
-  console.log(cityName);
   //add cityName to list
   if (cityName) {
     //reset cityInput
     cityInputEl.value = ""
     appendCity(cityName);
+    getCoordinates(cityName);
   }
 };
 
@@ -98,7 +98,6 @@ var appendCity = function (cityName) {
 
     //add to local storage
     saveCity(cityName);
-
   }
 }
 
@@ -106,7 +105,6 @@ var appendCity = function (cityName) {
 var saveCity = function (cityName) {
   //array for old searches
   cities.push(cityName);
-  console.log(cities);
   localStorage.setItem("cities", JSON.stringify(cities));
 };
 
@@ -149,9 +147,25 @@ var myChart = new Chart(ctx, {
   }
 });
 
+//FUNCTION to convert CITYNAME into Long/Lat coordinates
+var getCoordinates = function (cityName) {
+  console.log(cityName);
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+  fetch(coordinatesApiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var cityLatitude = data.results[0].geometry.location.lat;
+      var cityLongitude = data.results[0].geometry.location.lng;
+      getTestSites(cityLatitude, cityLongitude);
+    })
+
+}
+
 //hardcoding testing site API until we have a drop down select menu for city
-var getTestSites = function () {
-  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=30.22,-92.02&limit=5"
+var getTestSites = function (cityLatitude, cityLongitude) {
+  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cityLatitude + "," + cityLongitude + "&limit=5";
   fetch(testingApiUrl)
     .then(function (response) {
       return response.json();
@@ -161,7 +175,7 @@ var getTestSites = function () {
         // add testing title to card
         var cardTitle = document.createElement("span");
         cardTitle.classList = "card-title";
-        cardTitle.textContent = data.items[i].title;
+        cardTitle.textContent = data.items[i].title.split(":")[1];
         // FIGURE OUT HOW TO DELETE FIRST PART OF STRING IN TITLES: Covid-19 Testing Site:    something like: cardTitle.textContent.split
         var cardContent = document.createElement("div");
         cardContent.classList = "card-content white-text";
@@ -184,5 +198,3 @@ var getTestSites = function () {
       }
     });
 }
-
-getTestSites();
