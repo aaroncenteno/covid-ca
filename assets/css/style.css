@@ -15,8 +15,12 @@ body {
 }
 
 #coronaimage {
-    display: inline;
     max-height: 50px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, .5);
+    margin-top: 7px;
+    padding-right: 15px;
+
 }
 
 /* Aside Styling */
