@@ -1,3 +1,6 @@
+// array to store cities in local storage
+var cities = [];
+
 $(document).ready(function () {
   $('#modal1').modal();
 
@@ -63,57 +66,87 @@ $(document).ready(function () {
       "Yuba": null,
     },
   });
+});
 
-//   var data = {
-//     resource_id: 'b6648a0d-ff0a-4111-b80b-febda2ac9e09', // the resource id
-//     limit: 5, // get 5 results
-//     q: 'jones' // query for 'jones'
-//   };
-//   $.ajax({
-//     url: '',
-//     data: data,
-//     dataType: 'jsonp',
-//     success: function(data) {
-//       alert('Total results found: ' + data.result.total)
-//     }
-//   });
-})
+//function to grab user's city search choice
+var searchButtonEl = document.querySelector("#searchbutton");
+var cityInputEl = document.querySelector("#city-search");
+
+var searchButtonHandler = function (event) {
+  //prevent browser from sending user's input data to a URL
+  event.preventDefault();
+  //get value
+  var cityName = cityInputEl.value.trim();
+  console.log(cityName);
+  //add cityName to list
+  if (cityName) {
+    //reset cityInput
+    cityInputEl.value = ""
+    appendCity(cityName);
+  }
+};
+
+//function to add city to list
+var appendCity = function (cityName) {
+  if (cities.indexOf(cityName) === -1) {
+    //append to list
+    var cityItem = document.createElement("li");
+    cityItem.classList = "collection-item";
+    cityItem.textContent = cityName;
+    var cityList = document.querySelector(".collection");
+    cityList.appendChild(cityItem);
+
+    //add to local storage
+    saveCity(cityName);
+
+  }
+}
+
+//function to add city to local storage
+var saveCity = function (cityName) {
+  //array for old searches
+  cities.push(cityName);
+  console.log(cities);
+  localStorage.setItem("cities", JSON.stringify(cities));
+};
+
+searchButtonEl.addEventListener("click", searchButtonHandler);
 
 var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-        datasets: [{
-            label: '# of Cases',
-            data: [50, 90, 150, 300, 450, 500, 1000, 1250, 1600, 1900, 2000,],
-            backgroundColor: 
-                'rgba(128, 203, 196, 0.4)',
-            borderColor: 
-                'rgba(0, 96, 100, 1)',
-             borderWidth: 1,
-        }]
-    },
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+    datasets: [{
+      label: '# of Cases',
+      data: [50, 90, 150, 300, 450, 500, 1000, 1250, 1600, 1900, 2000,],
+      backgroundColor:
+        'rgba(128, 203, 196, 0.4)',
+      borderColor:
+        'rgba(0, 96, 100, 1)',
+      borderWidth: 1,
+    }]
+  },
 
-    options: {
-        maintainAspectRatio: false,
-        title: {
-            display: true,
-            text: 'COVID-19 Cases',
-            fontSize: 25,
-        },
-        configuration: {
-            maintainAspectRatio: false
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+  options: {
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: 'COVID-19 Cases',
+      fontSize: 25,
+    },
+    configuration: {
+      maintainAspectRatio: false
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
         }
+      }]
     }
+  }
 });
 
 //hardcoding testing site API until we have a drop down select menu for city
@@ -124,7 +157,6 @@ var getTestSites = function () {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
       for (var i = 0; i < 5; i++) {
         // add testing title to card
         var cardTitle = document.createElement("span");
@@ -154,4 +186,3 @@ var getTestSites = function () {
 }
 
 getTestSites();
-
