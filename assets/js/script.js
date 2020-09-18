@@ -173,26 +173,26 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     })
     .then(function (data) {
       for (var i = 0; i < 5; i++) {
-        // add testing title to card
+        // add testing center title to cards, add testing address to cards
         var cardTitle = document.createElement("span");
-        cardTitle.classList = "card-title";
-        cardTitle.textContent = data.items[i].title.split(":")[1];
-        // FIGURE OUT HOW TO DELETE FIRST PART OF STRING IN TITLES: Covid-19 Testing Site:    something like: cardTitle.textContent.split
         var cardContent = document.createElement("div");
-        cardContent.classList = "card-content white-text";
-        cardContent.appendChild(cardTitle);
         var card = document.createElement("div");
-        card.classList = "card darken-1 col s112 m5 l2";
-        card.appendChild(cardContent);
         var cardContainer = document.querySelector(".card-container");
-
-        // add testing address to card
         var cardAddress = document.createElement("a");
+        var cardBody = document.createElement("div");
+        cardBody.classList = "card-action";
         cardAddress.classList = "facility-address";
         cardAddress.id = "facility-address";
         cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
-        var cardBody = document.createElement("div");
-        cardBody.classList = "card-action";
+        cardAddress.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardAddress.textContent);
+        cardAddress.setAttribute("target", "_blank")
+        cardTitle.classList = "card-title";
+        cardTitle.textContent = data.items[i].title.split(":")[1];
+        cardContent.classList = "card-content white-text";
+        card.classList = "card darken-1 col s112 m5 l2";
+        //append card title and address to the page
+        cardContent.appendChild(cardTitle);
+        card.appendChild(cardContent);
         cardBody.appendChild(cardAddress);
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
