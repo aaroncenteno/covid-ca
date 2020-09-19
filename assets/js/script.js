@@ -7,6 +7,7 @@ var cityHeaderEl = document.querySelector(".city-header");
 var cardContainer = document.querySelector(".card-container");
 var facilitiesHeader = document.querySelector(".facilities-header");
 var currentCity = document.querySelector(".current-city");
+var chartEl = document.querySelector("#chart-container");
 var cityName = cityInputEl.value.trim();
 var cityList = document.querySelector(".collection");
 var cities = [];
@@ -81,27 +82,47 @@ $(document).ready(function () {
     },
   });
 
+  $("#city-search").on("keypress", function (e) {
+    if (e.which == 13) {
+    var cityInputEl = $("#city-search").val();
+    searchButtonHandler(cityInputEl);
+    $("#city-search").val("")
+    $("#modal1").modal('close');
+    }
+  });
 
-});
+  // $(".modal-close").on("keypress", function (e) {
+  //   if (e.which == 13) {
+      
+  //   }
+  // });
+
+})
+
+
 
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
-  event.preventDefault();
+  // event.preventDefault();
   //get value
   var cityName = cityInputEl.value.trim();
   //add cityName to list
   if (cityName) {
     //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
-    cityInputEl.value = "";
-    cardContainer.textContent = "";
+    cardContainer.innerHTML = "";
+    // cityInputEl.value = "";
+    chartEl.innerHTML= "";
     appendCity(cityName);
     //add to local storage
     saveCity(cityName);
     getCoordinates(cityName);
     getResults(cityName);
   }
+  var myChartEl = document.createElement("canvas");
+    myChartEl.id = "myChart";
+    chartEl.appendChild(myChartEl);
 };
 
 var searchHistory = function (cityName) {
@@ -109,9 +130,13 @@ var searchHistory = function (cityName) {
   if (cityName) {
     cityInputEl.value = "";
     cardContainer.textContent = "";
+    chartEl.innerHTML = "";
     getCoordinates(cityName);
     getResults(cityName);
   }
+  var myChartEl = document.createElement("canvas");
+    myChartEl.id = "myChart";
+    chartEl.appendChild(myChartEl);
 };
 //function to delete city history
 var deleteButtonHandler = function () {
@@ -156,30 +181,50 @@ var loadCity = function () {
 
 // fetch and show Covid Case and Deaths for selected County
 var getResults = function (cityName) {
-  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName;
+  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName + "&limit=500";
   fetch(resultsApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
       dataBaseInfo = data.result.records;
-      console.log(dataBaseInfo);
+      // console.log(dataBaseInfo);
       var i = data.result.records.length - 1;
       cityHeaderEl.textContent = data.result.records[i].county;
       cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
       cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
-      // var covidCasesApi = "cf11de0d-32c5-451a-bfd1-dd7b1951978a";
 
       // Chart Creation
       var ctx = document.getElementById('myChart').getContext('2d');
       var useData = [];
-      var date = []
-      for  (i = 0; i < 12; i++) {
-        date.push(dataBaseInfo[i].date)
-        useData.push(dataBaseInfo[i].totalcountconfirmed);
+      var date = [];
+      var a = moment([2020, 3]);
+      var b = moment([moment().get('year'), moment().get('month')]);
+      var monthCount = b.diff(a,'months');
+      // console.log(monthCount);
+      for (j = -1; j <= monthCount; j++) {
+
+        // Initial Date of Covid Case Recording
+        var month = moment([2020, 3, 18]).add(j, 'month');
+        console.log(moment(month).format('MM YYYY'));
+        var lastDay = new Date((moment(month).format('YYYY')), (moment(month).format('MM')), 0);
+        console.log(lastDay);
+        for  (i = 0; i < data.result.records.length; i++) {
+          var compareDate = moment(lastDay).format("YYYY-MM-DD" + "T00:00:00");
+          if (data.result.records[i].date.indexOf(compareDate) !== -1)  
+          {
+          var dateFormat = moment(data.result.records[i].date).format("MMM");
+          date.push(dateFormat);
+          useData.push(dataBaseInfo[i].totalcountconfirmed);
+          } 
+        }  
       }
-      console.log(useData);
+      var a = data.result.records.length - 1;
+            var dateFormat = moment(data.result.records[a].date).format("MMM");
+            date.push(dateFormat);
+            useData.push(dataBaseInfo[a].totalcountconfirmed);
+
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
