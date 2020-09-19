@@ -110,7 +110,8 @@ aside {
 }
 
 /* Facilities Container */
-.facilities-header {
+.facilities-header,
+.covid-information-header {
     margin-top: 60px;
     margin-left: 22px;
     color: var(--quinary-color);
@@ -133,10 +134,14 @@ aside {
     color: var(--secondary-color);
 }
 
+.covid-information-header {
+    color: var(--quaternary-color);
+}
+
 .covid-information {
     display: flex;
     margin-right: 100px;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .covid-description,
