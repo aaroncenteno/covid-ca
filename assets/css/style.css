@@ -12,13 +12,15 @@ body {
 
 .header {
     background-color: var(--primary-color);
+    height: 80px;
+    padding-top: 10px;
 }
 
 #coronaimage {
     max-height: 50px;
     border-radius: 50%;
     box-shadow: rgba(0, 0, 0, .5);
-    margin-top: 7px;
+    padding-top: 0px;
     padding-right: 15px;
 
 }
@@ -29,7 +31,7 @@ aside {
 }
 
 .city-list {
-    height: 200px;
+    height: 320px;
     overflow: hidden; 
     overflow-y: scroll;
 }
@@ -102,13 +104,16 @@ aside {
     width: 100%;
     position: relative;
     margin-top: 30px;
-    height: 60vh;
+    height: 65vh;
     width: 80vw;
 }
 
-.facilities-header {
-    margin-top: 30px;
-    margin-left: 30px;
+/* Facilities Container */
+.facilities-header,
+.covid-information-header {
+    margin-top: 60px;
+    margin-left: 22px;
+    color: var(--quinary-color);
 }
 
 .card-container {
@@ -127,6 +132,41 @@ aside {
     color: var(--secondary-color);
 }
 
+.covid-information-header {
+    color: var(--quaternary-color);
+    display: inline-block;
+}
+
+.covid-information {
+    display: flex;
+    margin-right: 100px;
+    padding-top: 50px;
+}
+
+.covid-description,
+.covid-symptoms,
+.covid-emergency {
+    background-color: var(--quaternary-color);
+    color: white;
+    border-radius: 10%;
+}
+
+.covid-description {
+    font-size: 25px;
+}
+
+.covid-symptoms,
+.covid-emergency {
+    font-size: 20px;
+}
+
+.symptoms-list {
+    font-size: 16px;
+    list-style-type: disc;
+}
+
+
+
 .modal,
 .modal-footer {
     background-color: var(--primary-color);
@@ -143,7 +183,15 @@ input {
 
 
 
-@media only screen and (max-width: 925px) {
+@media only screen and (max-width: 995px) {
+    aside {
+        text-align: center;
+        margin-left: 150px;
+    }
+
+    .city-list {
+        height: 100px;
+    }
 
     .current-city {
         display: inline-block;
@@ -155,6 +203,11 @@ input {
 
     .stats-chart {
         margin-top: 50px;
+    }
+
+    .facilities-header {
+        display: inline-block;
+        margin-left: 180px;
     }
 
     .card-container {
@@ -170,6 +223,20 @@ input {
     .stats-chart {
         height: 60vh;
         width: 80vw;
+    }
+
+    .covid-description,
+    .covid-symptoms,
+    .covid-emergency {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .covid-information,
+    .covid-information-header {
+        display: inline-block;
+        margin-left: 65px;
+        width: 100%;
     }
 }
 
@@ -196,7 +263,15 @@ input {
         text-align: center;
     }
     .stats-chart {
-        height: 60vh;
+        height: 40vh;
         width: 80vw;
+    }
+
+    .covid-information-header {
+        margin: 50px;
+    }
+
+    .covid-information {
+        margin: 0px;
     }
 }
