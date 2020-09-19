@@ -105,7 +105,7 @@ aside {
     width: 100%;
     position: relative;
     margin-top: 30px;
-    height: 45vh;
+    height: 65vh;
     width: 80vw;
 }
 
@@ -136,6 +136,7 @@ aside {
 
 .covid-information-header {
     color: var(--quaternary-color);
+    display: inline-block;
 }
 
 .covid-information {
@@ -184,7 +185,15 @@ input {
 
 
 
-@media only screen and (max-width: 925px) {
+@media only screen and (max-width: 975px) {
+    aside {
+        text-align: center;
+        margin-left: 150px;
+    }
+
+    .city-list {
+        height: 100px;
+    }
 
     .current-city {
         display: inline-block;
@@ -196,6 +205,11 @@ input {
 
     .stats-chart {
         margin-top: 50px;
+    }
+
+    .facilities-header {
+        display: inline-block;
+        margin-left: 180px;
     }
 
     .card-container {
@@ -211,6 +225,20 @@ input {
     .stats-chart {
         height: 60vh;
         width: 80vw;
+    }
+
+    .covid-description,
+    .covid-symptoms,
+    .covid-emergency {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .covid-information,
+    .covid-information-header {
+        display: inline-block;
+        margin-left: 65px;
+        width: 100%;
     }
 }
 
@@ -237,7 +265,15 @@ input {
         text-align: center;
     }
     .stats-chart {
-        height: 60vh;
+        height: 40vh;
         width: 80vw;
+    }
+
+    .covid-information-header {
+        margin: 50px;
+    }
+
+    .covid-information {
+        margin: 0px;
     }
 }

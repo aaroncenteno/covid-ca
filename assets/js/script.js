@@ -6,6 +6,7 @@ var cityDeathsEl = document.querySelector(".city-deaths");
 var cityHeaderEl = document.querySelector(".city-header");
 var cardContainer = document.querySelector(".card-container");
 var facilitiesHeader = document.querySelector(".facilities-header");
+var currentCity = document.querySelector(".current-city");
 var cityName = cityInputEl.value.trim();
 var cityList = document.querySelector(".collection");
 var cities = [];
@@ -247,6 +248,7 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         var cardAddress = document.createElement("a");
         var cardBody = document.createElement("div");
         facilitiesHeader.classList.remove("hide");
+        currentCity.classList.remove("hide");
         cardBody.classList = "card-action";
         cardAddress.classList = "facility-address";
         cardAddress.id = "facility-address";
