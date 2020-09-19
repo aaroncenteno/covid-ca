@@ -81,7 +81,6 @@ aside {
 .city-header {
     font-weight: bold;
     font-size: 50px;
-    text-decoration: underline;
 }
 
 .city-header,
@@ -115,7 +114,6 @@ aside {
     margin-top: 60px;
     margin-left: 22px;
     color: var(--quinary-color);
-    text-decoration: underline;
 }
 
 .card-container {
