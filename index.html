@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./assets/css/style.css">
 
   <title>COVID California</title>
+  <span><img id="coronaimage" src="./assets/images/corona.jpg" /></span>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
     <aside class="col s12 m3 l2">
       <!-- Add City Button -->
       <button id="add-city-btn" class="waves-effect waves-light btn search-btn modal-trigger" href="#modal1">
-        <i class="fas fa-search-plus"></i> Add a City
+        <i class="fas fa-search-plus"></i> Add a County
       </button>
       <!-- List of Searched Cities -->
       <ul class="collection">
@@ -37,7 +38,7 @@
 
       <!-- Clear Local Storage Button -->
       <button id="clear-storage-btn" class="waves-effect waves-light btn clear-btn">
-        Delete City History
+        Delete County History
       </button>
     </aside>
 
@@ -115,7 +116,7 @@
     <!-- Modal -->
     <div id="modal1" class="modal">
       <div class="modal-content">
-        <h4>Enter a city in California:</h4>
+        <h4>Enter a county in California:</h4>
         <div class="input-field">
           <input type="text" id="city-search" class="autocomplete">
         </div>

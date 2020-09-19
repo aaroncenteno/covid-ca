@@ -9,71 +9,72 @@ var cityName = cityInputEl.value.trim();
 
 // array to store cities in local storage
 var cities = [];
+var data = {
+  "Alameda": null,
+  "Alpine": null,
+  "Amador": null,
+  "Butte": null,
+  "Calaveras": null,
+  "Colusa": null,
+  "Contra Costa": null,
+  "Del Norte": null,
+  "El Dorado": null,
+  "Fresno": null,
+  "Glenn": null,
+  "Humboldt": null,
+  "Imperial": null,
+  "Inyo": null,
+  "Kern": null,
+  "Kings": null,
+  "Lake": null,
+  "Lassen": null,
+  "Los Angeles": null,
+  "Madera": null,
+  "Marin": null,
+  "Mariposa": null,
+  "Mendocino": null,
+  "Merced": null,
+  "Modoc": null,
+  "Mono": null,
+  "Monterey": null,
+  "Napa": null,
+  "Nevada": null,
+  "Orange": null,
+  "Placer": null,
+  "Plumas": null,
+  "Riverside": null,
+  "Sacramento": null,
+  "San Benito": null,
+  "San Bernardino": null,
+  "San Diego": null,
+  "San Francisco": null,
+  "San Joaquin": null,
+  "San Luis Obispo": null,
+  "San Mateo": null,
+  "Santa Barbara": null,
+  "Santa Clara": null,
+  "Santa Cruz": null,
+  "Shasta": null,
+  "Sierra": null,
+  "Siskiyou": null,
+  "Solano": null,
+  "Sonoma": null,
+  "Stanislaus": null,
+  "Sutter": null,
+  "Tehama": null,
+  "Trinity": null,
+  "Tulare": null,
+  "Tuolumne": null,
+  "Ventura": null,
+  "Yolo": null,
+  "Yuba": null,
+}
 
 $(document).ready(function () {
   $('#modal1').modal();
 
   $('input.autocomplete').autocomplete({
-    data: {
-      "Alameda": null,
-      "Alpine": null,
-      "Amador": null,
-      "Butte": null,
-      "Calaveras": null,
-      "Colusa": null,
-      "Contra Costa": null,
-      "Del Norte": null,
-      "El Dorado": null,
-      "Fresno": null,
-      "Glenn": null,
-      "Humboldt": null,
-      "Imperial": null,
-      "Inyo": null,
-      "Kern": null,
-      "Kings": null,
-      "Lake": null,
-      "Lassen": null,
-      "Los Angeles": null,
-      "Madera": null,
-      "Marin": null,
-      "Mariposa": null,
-      "Mendocino": null,
-      "Merced": null,
-      "Modoc": null,
-      "Mono": null,
-      "Monterey": null,
-      "Napa": null,
-      "Nevada": null,
-      "Orange": null,
-      "Placer": null,
-      "Plumas": null,
-      "Riverside": null,
-      "Sacramento": null,
-      "San Benito": null,
-      "San Bernardino": null,
-      "San Diego": null,
-      "San Francisco": null,
-      "San Joaquin": null,
-      "San Luis Obispo": null,
-      "San Mateo": null,
-      "Santa Barbara": null,
-      "Santa Clara": null,
-      "Santa Cruz": null,
-      "Shasta": null,
-      "Sierra": null,
-      "Siskiyou": null,
-      "Solano": null,
-      "Sonoma": null,
-      "Stanislaus": null,
-      "Sutter": null,
-      "Tehama": null,
-      "Trinity": null,
-      "Tulare": null,
-      "Tuolumne": null,
-      "Ventura": null,
-      "Yolo": null,
-      "Yuba": null,
-    },
+    data: data,
   });
 });
 
@@ -83,8 +84,15 @@ var searchButtonHandler = function (event) {
   event.preventDefault();
   //get value
   var cityName = cityInputEl.value.trim();
+  var splitStr = cityName.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  // Directly return the joined string
+  cityName = splitStr.join(' ');
+
   //add cityName to list
-  if (cityName) {
+  if (data[cityName] === null) {
     //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
     cityInputEl.value = "";
@@ -120,8 +128,11 @@ var appendCity = function (cityName) {
 //function to add city to local storage
 var saveCity = function (cityName) {
   //array for old searches
-  cities.push(cityName);
-  localStorage.setItem("cities", JSON.stringify(cities));
+  console.log(cities.indexOf(cityName));
+  if (cities.indexOf(cityName) === -1) {
+    cities.push(cityName);
+    localStorage.setItem("cities", JSON.stringify(cities));
+  }
 };
 
 //function to load cities from local storage on page refresh
@@ -184,6 +195,7 @@ var getResults = function (cityName) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data);
       var i = data.result.records.length - 1;
       cityHeaderEl.textContent = data.result.records[i].county;
       cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
@@ -214,6 +226,7 @@ var getTestSites = function (cityLatitude, cityLongitude) {
       return response.json();
     })
     .then(function (data) {
+      cardContainer.innerHTML = "";
       for (var i = 0; i < 5; i++) {
         //add testing center title to cards, add testing address to cards
         var cardTitle = document.createElement("span");
@@ -241,6 +254,11 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     });
 }
 
+$(document).on("click", ".collection-item", function () {
+  console.log($(this).text());
+  getCoordinates($(this).text());
+  getResults($(this).text());
+});
 searchButtonEl.addEventListener("click", searchButtonHandler);
 deleteButtonEl.addEventListener("click", deleteButtonHandler)
 loadCity();
