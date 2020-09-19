@@ -12,13 +12,15 @@ body {
 
 .header {
     background-color: var(--primary-color);
+    height: 80px;
+    padding-top: 10px;
 }
 
 #coronaimage {
     max-height: 50px;
     border-radius: 50%;
     box-shadow: rgba(0, 0, 0, .5);
-    margin-top: 7px;
+    padding-top: 0px;
     padding-right: 15px;
 
 }
@@ -29,7 +31,7 @@ aside {
 }
 
 .city-list {
-    height: 200px;
+    height: 320px;
     overflow: hidden; 
     overflow-y: scroll;
 }
@@ -79,6 +81,7 @@ aside {
 .city-header {
     font-weight: bold;
     font-size: 50px;
+    text-decoration: underline;
 }
 
 .city-header,
@@ -102,13 +105,16 @@ aside {
     width: 100%;
     position: relative;
     margin-top: 30px;
-    height: 60vh;
+    height: 45vh;
     width: 80vw;
 }
 
+/* Facilities Container */
 .facilities-header {
-    margin-top: 30px;
-    margin-left: 30px;
+    margin-top: 60px;
+    margin-left: 22px;
+    color: var(--quinary-color);
+    text-decoration: underline;
 }
 
 .card-container {
