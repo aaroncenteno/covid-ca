@@ -73,9 +73,7 @@ aside {
 /* Searched City Styling */
 
 .city-stats {
-    /* width: 50%; */
     padding-left: 50px;
-    margin-top: 30px;
 }
 
 .city-header {
@@ -99,12 +97,10 @@ aside {
 }
 
 .stats-chart {
-    /* padding-left: 100px; */
     height: 100%;
     width: 100%;
     position: relative;
-    margin-top: 30px;
-    height: 65vh;
+    height: 450px;
     width: 80vw;
 }
 
@@ -264,14 +260,36 @@ input {
     }
     .stats-chart {
         height: 40vh;
-        width: 80vw;
+        width: 8
+        0vw;
     }
-
-    .covid-information-header {
-        margin: 50px;
-    }
-
-    .covid-information {
+    .facilities-header {
         margin: 0px;
+        margin-top: 30px;
+    }
+
+    .card-container{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .card {
+        height: 275px;
+    }
+
+    .covid-description,
+    .covid-symptoms,
+    .covid-emergency {
+        width: 100%;
+    }
+
+    .covid-information,
+    .covid-information-header {
+        margin-top: 15px;
+        margin-right: 0px;
+        margin-left: 20px;
+        padding-top: 0px;
+        display: inline-block;
+        width: 90%;
     }
 }
