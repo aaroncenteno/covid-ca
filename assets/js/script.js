@@ -330,6 +330,7 @@ var getTestSites = function (cityLatitude, cityLongitude) {
 // Set Data for Embedded Map and Navigate Button
 $(document).on("click", ".facility-address", function () {
   // console.log($(this).text());
+  
   navBtn.setAttribute("target", "_blank");
   navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
   navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
