@@ -17,6 +17,66 @@ var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
 var cities = [];
 var dataBaseInfo = [];
+var data = {
+  "Alameda": null,
+  "Alpine": null,
+  "Amador": null,
+  "Butte": null,
+  "Calaveras": null,
+  "Colusa": null,
+  "Contra Costa": null,
+  "Del Norte": null,
+  "El Dorado": null,
+  "Fresno": null,
+  "Glenn": null,
+  "Humboldt": null,
+  "Imperial": null,
+  "Inyo": null,
+  "Kern": null,
+  "Kings": null,
+  "Lake": null,
+  "Lassen": null,
+  "Los Angeles": null,
+  "Madera": null,
+  "Marin": null,
+  "Mariposa": null,
+  "Mendocino": null,
+  "Merced": null,
+  "Modoc": null,
+  "Mono": null,
+  "Monterey": null,
+  "Napa": null,
+  "Nevada": null,
+  "Orange": null,
+  "Placer": null,
+  "Plumas": null,
+  "Riverside": null,
+  "Sacramento": null,
+  "San Benito": null,
+  "San Bernardino": null,
+  "San Diego": null,
+  "San Francisco": null,
+  "San Joaquin": null,
+  "San Luis Obispo": null,
+  "San Mateo": null,
+  "Santa Barbara": null,
+  "Santa Clara": null,
+  "Santa Cruz": null,
+  "Shasta": null,
+  "Sierra": null,
+  "Siskiyou": null,
+  "Solano": null,
+  "Sonoma": null,
+  "Stanislaus": null,
+  "Sutter": null,
+  "Tehama": null,
+  "Trinity": null,
+  "Tulare": null,
+  "Tuolumne": null,
+  "Ventura": null,
+  "Yolo": null,
+  "Yuba": null,
+}
 
 $(document).ready(function () {
   $('#modal1').modal();
@@ -277,7 +337,7 @@ var getTestSites = function (cityLatitude, cityLongitude) {
     });
 }
 $(document).on("click", ".facility-address", function () {
-  console.log($(this).text());
+  // console.log($(this).text());
   navBtn.setAttribute("target", "_blank");
   navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
   navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
