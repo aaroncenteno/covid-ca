@@ -177,6 +177,9 @@ input {
     background-color: var(--secondary-color);
 }
 
+.modal-btn:focus {
+    display: none;
+}
 
 
 @media only screen and (max-width: 995px) {
