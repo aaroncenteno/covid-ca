@@ -245,11 +245,11 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         facilitiesHeader.classList.remove("hide");
         currentCity.classList.remove("hide");
         cardBody.classList = "card-action";
-        cardAddress.classList = "facility-address";
+        cardAddress.classList = "facility-address modal-trigger";
         cardAddress.id = "facility-address";
         cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
-        cardAddress.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardAddress.textContent);
-        cardAddress.setAttribute("target", "_blank")
+        cardAddress.setAttribute("href", "#modal2") //https://www.google.com/maps/search/?api=1&query=" + cardAddress.textContent//);
+        // cardAddress.setAttribute("target", "_blank")
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
