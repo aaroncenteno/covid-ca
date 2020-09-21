@@ -234,8 +234,17 @@ input {
     .covid-information,
     .covid-information-header {
         display: inline-block;
-        margin-left: 65px;
-        width: 100%;
+        margin-left: 125px;
+        width: 80%;
+    }
+
+    #modal2 {
+        width: 80%;
+        margin-left: 100px;
+    }
+
+    iframe {
+        width: 75vw;
     }
 }
 
@@ -254,6 +263,16 @@ input {
 
     .card {
         height: 450px;
+    }
+
+    #modal2 {
+        width: 80%;
+        margin-left: 100px;
+    }
+
+    iframe {
+        height: 40vh;
+        width: 82vw;
     }
 }
 
@@ -294,5 +313,15 @@ input {
         padding-top: 0px;
         display: inline-block;
         width: 90%;
+    }
+
+    #modal2 {
+        width: 80%;
+        margin-left: 40px;
+    }
+
+    iframe {
+        height: 30vh;
+        width: 68vw;
     }
 }
