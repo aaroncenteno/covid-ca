@@ -177,6 +177,9 @@ input {
     background-color: var(--secondary-color);
 }
 
+.modal-btn:focus {
+    display: none;
+}
 
 
 @media only screen and (max-width: 995px) {
@@ -231,16 +234,27 @@ input {
     .covid-information,
     .covid-information-header {
         display: inline-block;
-        margin-left: 65px;
-        width: 100%;
+        margin-left: 125px;
+        width: 80%;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3 {
+        width: 80%;
+        margin-left: 100px;
+    }
+
+    iframe {
+        width: 75vw;
     }
 }
 
 @media only screen and (max-width: 775px) {
     .card-container {
         display: inline-block;
-        margin: 40px 40px 40px 40px;
-        width: 100%;
+        margin: 40px 40px 40px 110px;
+        width: 80vw;
     }
 
     .stats-chart {
@@ -251,6 +265,30 @@ input {
 
     .card {
         height: 450px;
+    }
+
+    .covid-information {
+        display: inline-block;
+        margin-left: 100px;
+        margin-right: 0px;
+        width: 72vw;
+    }
+    .covid-information-header {
+        display: inline-block;
+        margin-left: 90px;
+        width: 70vw;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3 {
+        width: 80%;
+        margin-left: 50px;
+    }
+
+    iframe {
+        height: 40vh;
+        width: 82vw;
     }
 }
 
@@ -291,5 +329,17 @@ input {
         padding-top: 0px;
         display: inline-block;
         width: 90%;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3{
+        width: 80%;
+        margin-left: 40px;
+    }
+
+    iframe {
+        height: 30vh;
+        width: 68vw;
     }
 }

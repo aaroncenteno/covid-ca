@@ -10,8 +10,73 @@ var currentCity = document.querySelector(".current-city");
 var chartEl = document.querySelector("#chart-container");
 var cityName = cityInputEl.value.trim();
 var cityList = document.querySelector(".collection");
+var cardAction = document.querySelector(".card-action");
+var navContent = document.querySelector(".modal-content");
+var navBtn = document.querySelector("#navigate-button");
+var navHeader = document.querySelector(".facility-name");
+var navMap = document.querySelector("#nav-map");
 var cities = [];
 var dataBaseInfo = [];
+var cityNames = {
+  "Alameda": null,
+  "Alpine": null,
+  "Amador": null,
+  "Butte": null,
+  "Calaveras": null,
+  "Colusa": null,
+  "Contra Costa": null,
+  "Del Norte": null,
+  "El Dorado": null,
+  "Fresno": null,
+  "Glenn": null,
+  "Humboldt": null,
+  "Imperial": null,
+  "Inyo": null,
+  "Kern": null,
+  "Kings": null,
+  "Lake": null,
+  "Lassen": null,
+  "Los Angeles": null,
+  "Madera": null,
+  "Marin": null,
+  "Mariposa": null,
+  "Mendocino": null,
+  "Merced": null,
+  "Modoc": null,
+  "Mono": null,
+  "Monterey": null,
+  "Napa": null,
+  "Nevada": null,
+  "Orange": null,
+  "Placer": null,
+  "Plumas": null,
+  "Riverside": null,
+  "Sacramento": null,
+  "San Benito": null,
+  "San Bernardino": null,
+  "San Diego": null,
+  "San Francisco": null,
+  "San Joaquin": null,
+  "San Luis Obispo": null,
+  "San Mateo": null,
+  "Santa Barbara": null,
+  "Santa Clara": null,
+  "Santa Cruz": null,
+  "Shasta": null,
+  "Sierra": null,
+  "Siskiyou": null,
+  "Solano": null,
+  "Sonoma": null,
+  "Stanislaus": null,
+  "Sutter": null,
+  "Tehama": null,
+  "Trinity": null,
+  "Tulare": null,
+  "Tuolumne": null,
+  "Ventura": null,
+  "Yolo": null,
+  "Yuba": null,
+}
 
 $(document).ready(function () {
   $('#modal1').modal();
@@ -20,7 +85,7 @@ $(document).ready(function () {
 
 
   $('input.autocomplete').autocomplete({
-    data: data,
+    data: cityNames,
   });
 
   $("#city-search").on("keypress", function (e) {
@@ -56,7 +121,7 @@ var searchButtonHandler = function (event) {
   cityName = splitStr.join(' ');
 
   //add cityName to list
-  if (data[cityName] === null) {
+  if (cityNames[cityName] === null) {
     //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
     cardContainer.innerHTML = "";
@@ -108,7 +173,7 @@ var appendCity = function (cityName) {
 //function to add city to local storage
 var saveCity = function (cityName) {
   //array for old searches
-  console.log(cities.indexOf(cityName));
+  // console.log(cities.indexOf(cityName));
   if (cities.indexOf(cityName) === -1) {
     cities.push(cityName);
     localStorage.setItem("cities", JSON.stringify(cities));
@@ -156,9 +221,9 @@ var getResults = function (cityName) {
 
         // Initial Date of Covid Case Recording
         var month = moment([2020, 3, 18]).add(j, 'month');
-        console.log(moment(month).format('MM YYYY'));
+        // console.log(moment(month).format('MM YYYY'));
         var lastDay = new Date((moment(month).format('YYYY')), (moment(month).format('MM')), 0);
-        console.log(lastDay);
+        // console.log(lastDay);
         for  (i = 0; i < data.result.records.length; i++) {
           var compareDate = moment(lastDay).format("YYYY-MM-DD" + "T00:00:00");
           if (data.result.records[i].date.indexOf(compareDate) !== -1)  
@@ -245,11 +310,10 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         facilitiesHeader.classList.remove("hide");
         currentCity.classList.remove("hide");
         cardBody.classList = "card-action";
-        cardAddress.classList = "facility-address";
+        cardAddress.classList = "facility-address modal-trigger";
         cardAddress.id = "facility-address";
         cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
-        cardAddress.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardAddress.textContent);
-        cardAddress.setAttribute("target", "_blank")
+        cardAddress.setAttribute("href", "#modal2") ;
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
@@ -260,12 +324,19 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         cardBody.appendChild(cardAddress);
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
+        
       }
     });
 }
-
+// Set Data for Embedded Map and Navigate Button
+$(document).on("click", ".facility-address", function () {
+  // console.log($(this).text());
+  navBtn.setAttribute("target", "_blank");
+  navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
+  navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
+})
 $(document).on("click", ".collection-item", function () {
-  console.log($(this).text());
+  // console.log($(this).text());
   getCoordinates($(this).text());
   getResults($(this).text());
 });
