@@ -1,22 +1,23 @@
-var searchButtonEl = document.querySelector("#searchbutton");
-var deleteButtonEl = document.querySelector("#clear-storage-btn")
-var cityInputEl = document.querySelector("#city-search");
+var cardAction = document.querySelector(".card-action");
+var cardContainer = document.querySelector(".card-container");
+var chartEl = document.querySelector("#chart-container");
+var cities = [];
 var cityCasesEl = document.querySelector(".city-cases");
 var cityDeathsEl = document.querySelector(".city-deaths");
 var cityHeaderEl = document.querySelector(".city-header");
-var cardContainer = document.querySelector(".card-container");
-var facilitiesHeader = document.querySelector(".facilities-header");
-var currentCity = document.querySelector(".current-city");
-var chartEl = document.querySelector("#chart-container");
-var cityName = cityInputEl.value.trim();
+var cityInputEl = document.querySelector("#city-search");
 var cityList = document.querySelector(".collection");
-var cardAction = document.querySelector(".card-action");
-var navContent = document.querySelector(".modal-content");
+var cityName = cityInputEl.value.trim();
+var currentCity = document.querySelector(".current-city");
+var dataBaseInfo = [];
+var deleteButtonEl = document.querySelector("#clear-storage-btn")
+var facilitiesHeader = document.querySelector(".facilities-header");
 var navBtn = document.querySelector("#navigate-button");
+var navContent = document.querySelector(".modal-content");
 var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
-var cities = [];
-var dataBaseInfo = [];
+var searchButtonEl = document.querySelector("#searchbutton");
+
 var cityNames = {
   "Alameda": null,
   "Alpine": null,
@@ -104,8 +105,6 @@ $(document).ready(function () {
   // });
 
 })
-
-
 
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
