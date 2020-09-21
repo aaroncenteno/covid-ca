@@ -238,7 +238,9 @@ input {
         width: 80%;
     }
 
-    #modal2 {
+    #modal1,
+    #modal2,
+    #modal3 {
         width: 80%;
         margin-left: 100px;
     }
@@ -251,8 +253,8 @@ input {
 @media only screen and (max-width: 775px) {
     .card-container {
         display: inline-block;
-        margin: 40px 40px 40px 40px;
-        width: 100%;
+        margin: 40px 40px 40px 110px;
+        width: 80vw;
     }
 
     .stats-chart {
@@ -265,9 +267,23 @@ input {
         height: 450px;
     }
 
-    #modal2 {
-        width: 80%;
+    .covid-information {
+        display: inline-block;
         margin-left: 100px;
+        margin-right: 0px;
+        width: 72vw;
+    }
+    .covid-information-header {
+        display: inline-block;
+        margin-left: 90px;
+        width: 70vw;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3 {
+        width: 80%;
+        margin-left: 50px;
     }
 
     iframe {
@@ -315,7 +331,9 @@ input {
         width: 90%;
     }
 
-    #modal2 {
+    #modal1,
+    #modal2,
+    #modal3{
         width: 80%;
         margin-left: 40px;
     }
