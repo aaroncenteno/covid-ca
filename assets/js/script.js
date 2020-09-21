@@ -17,7 +17,7 @@ var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
 var cities = [];
 var dataBaseInfo = [];
-var data = {
+var cityNames = {
   "Alameda": null,
   "Alpine": null,
   "Amador": null,
@@ -85,7 +85,7 @@ $(document).ready(function () {
 
 
   $('input.autocomplete').autocomplete({
-    data: data,
+    data: cityNames,
   });
 
   $("#city-search").on("keypress", function (e) {
@@ -121,7 +121,7 @@ var searchButtonHandler = function (event) {
   cityName = splitStr.join(' ');
 
   //add cityName to list
-  if (data[cityName] === null) {
+  if (cityNames[cityName] === null) {
     //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
     cardContainer.innerHTML = "";
