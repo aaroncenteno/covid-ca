@@ -265,18 +265,23 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
 
-        // Map Modal
-       navBtn.setAttribute("target", "_blank");
-       navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardBody.textContent);
-       navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + cardBody.textContent);
-       console.log(cardBody.textContent);
+      //   // Map Modal
+      //  navBtn.setAttribute("target", "_blank");
+      //  navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardBody.textContent);
+      //  navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + cardBody.textContent);
+      //  console.log(cardBody.textContent);
 
         // navContent.appendChild(navMap);
         //https://www.google.com/maps/search/?api=1&query=" + cardAddress.textContent//)
       }
     });
 }
-
+$(document).on("click", ".facility-address", function () {
+  console.log($(this).text());
+  navBtn.setAttribute("target", "_blank");
+  navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
+  navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
+})
 $(document).on("click", ".collection-item", function () {
   // console.log($(this).text());
   getCoordinates($(this).text());
