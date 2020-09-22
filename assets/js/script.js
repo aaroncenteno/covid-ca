@@ -1,22 +1,25 @@
-var searchButtonEl = document.querySelector("#searchbutton");
-var deleteButtonEl = document.querySelector("#clear-storage-btn")
-var cityInputEl = document.querySelector("#city-search");
+var cardAction = document.querySelector(".card-action");
+var cardContainer = document.querySelector(".card-container");
+var chartEl = document.querySelector("#chart-container");
+var cities = [];
 var cityCasesEl = document.querySelector(".city-cases");
 var cityDeathsEl = document.querySelector(".city-deaths");
 var cityHeaderEl = document.querySelector(".city-header");
-var cardContainer = document.querySelector(".card-container");
-var facilitiesHeader = document.querySelector(".facilities-header");
-var currentCity = document.querySelector(".current-city");
-var chartEl = document.querySelector("#chart-container");
-var cityName = cityInputEl.value.trim();
+var cityInputEl = document.querySelector("#city-search");
 var cityList = document.querySelector(".collection");
-var cardAction = document.querySelector(".card-action");
-var navContent = document.querySelector(".modal-content");
+var cityName = cityInputEl.value.trim();
+var currentCity = document.querySelector(".current-city");
+var dataBaseInfo = [];
+var deleteButtonEl = document.querySelector("#clear-storage-btn")
+var facilitiesHeader = document.querySelector(".facilities-header");
 var navBtn = document.querySelector("#navigate-button");
+var navContent = document.querySelector(".modal-content");
 var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
-var cities = [];
-var dataBaseInfo = [];
+var searchButtonEl = document.querySelector("#searchbutton");
+var limitWarningEl = document.querySelector("#limit-warning");
+
+
 var cityNames = {
   "Alameda": null,
   "Alpine": null,
@@ -105,8 +108,6 @@ $(document).ready(function () {
 
 })
 
-
-
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
@@ -132,6 +133,7 @@ var searchButtonHandler = function (event) {
     saveCity(cityName);
     getCoordinates(cityName);
     getResults(cityName);
+    displayWarning(cityName);
   }
   var myChartEl = document.createElement("canvas");
     myChartEl.id = "myChart";
@@ -146,10 +148,13 @@ var searchHistory = function (cityName) {
     chartEl.innerHTML = "";
     getCoordinates(cityName);
     getResults(cityName);
+    
   }
   var myChartEl = document.createElement("canvas");
     myChartEl.id = "myChart";
     chartEl.appendChild(myChartEl);
+    
+  displayWarning(cityName);
 };
 //function to delete city history
 var deleteButtonHandler = function () {
@@ -288,8 +293,10 @@ var getCoordinates = function (cityName) {
       var cityLongitude = data.results[0].geometry.location.lng;
       getTestSites(cityLatitude, cityLongitude);
     })
+    
+};
 
-}
+
 
 //hardcoding testing site API until we have a drop down select menu for city
 var getTestSites = function (cityLatitude, cityLongitude) {
@@ -318,6 +325,8 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
         card.classList = "card darken-1 col s112 m5 l2";
+        //navHeader.textContent=faciltyName.textContent;
+        //console.log(cardTitle.textContent);
         //append card title and address to the page
         cardContent.appendChild(cardTitle);
         card.appendChild(cardContent);
@@ -326,24 +335,46 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         cardContainer.appendChild(card);
         
       }
-    });
-}
+    })
+  };
+    
+
+//Construct link to all county facilities
+var displayWarning = function(cityName) {
+ // console.log(cityName)
+  // add text to warning container
+  
+  limitWarningEl.textContent = "To see all " + cityName + " testing facilities, click ";
+  var linkEl = document.createElement("a");
+  linkEl.textContent = "here";
+  linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+  
+
+// append to warning container
+limitWarningEl.appendChild(linkEl);
+
+};
+
 // Set Data for Embedded Map and Navigate Button
-$(document).on("click", ".facility-address", function () {
-  // console.log($(this).text());
+
+$(document).on("click", ".facility-address", function ($c) {
+   //console.log($(this).text());
   navBtn.setAttribute("target", "_blank");
   navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
   navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
-});
+})
+
 
 $(document).on("click", ".collection-item", function () {
   // console.log($(this).text());
   getCoordinates($(this).text());
   getResults($(this).text());
 });
+
 $(".collection").on("click", "li", function () {
   searchHistory($(this).text());
 })
+
 searchButtonEl.addEventListener("click", searchButtonHandler);
 deleteButtonEl.addEventListener("click", deleteButtonHandler)
 loadCity();
