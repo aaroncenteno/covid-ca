@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fav Icon -->
+  <link rel="icon" type="image/jpg" href="./assets/images/coronavirus.png">
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;1,200;1,800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/acfstyle.css">
+
+  <title>COVID California</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="nav-wrapper header">
+    
+    <a class="brand-logo center"><img id="coronaimage" src="./assets/images/coronavirus.png" alt="Covid-19 Molecule"/>COVID-19 California</a>
+  </nav>
+
+  <!-- Content Container -->
+  <div class="row">
+    <div class="row hide facilities-header">
+        <h3 class="col">Testing Facilities in <span id="testingLoc"></span> County</h3>
+        
+    </div>
+    <div>
+        <a href="./index.html" class="btn-back">
+          Go Back
+        </a>
+      </div>
+      <div class="row loc-container"></div>
+  </div>
+
+   
+
+    <!-- Map/Navigate Modal -->
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4 class="facility-name"></h4>
+        <iframe class="map"
+        id="nav-map"
+        height="270vh"
+        width="630vw"
+        frameborder="0" 
+        style="border:0;" 
+        allowfullscreen
+        >
+        <!-- add map here -->
+        </iframe>
+      </div>
+      <div class="modal-footer">
+        <a id="cancel-button" href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn" style="float: left;">Cancel</a>
+        <a id="navigate-button" href="#!" class="waves-effect waves-green btn-flat modal-btn">Navigate</a>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="modal3" class="modal">
+      <div class="modal-content">
+        <h4>Error: Server Connection</h4>
+      </div>
+      <div class="modal-footer">
+        <a id="cancel-button" href="#!" class="modal-close waves-effect waves-green btn-flat modal-btn" style="float: left;">Cancel</a>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./assets/js/acfscript.js"></script>
+</body>
+
+</html>
