@@ -107,9 +107,13 @@ aside {
 /* Facilities Container */
 .facilities-header,
 .covid-information-header {
-    margin-top: 60px;
+    /* margin-top: 60px; */
     margin-left: 22px;
     color: var(--quinary-color);
+}
+
+.covid-information-header {
+    margin-top: 30px;
 }
 
 .card-container {

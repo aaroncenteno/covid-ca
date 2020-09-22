@@ -364,6 +364,7 @@ $(document).on("click", ".facility-address", function ($c) {
   navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
 })
 
+
 $(document).on("click", ".collection-item", function () {
   // console.log($(this).text());
   getCoordinates($(this).text());
