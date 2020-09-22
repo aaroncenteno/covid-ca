@@ -112,6 +112,10 @@ aside {
     color: var(--quinary-color);
 }
 
+.covid-information-header {
+    margin-top: 30px;
+}
+
 .card-container {
     display: flex;
     padding-right: 40px;
