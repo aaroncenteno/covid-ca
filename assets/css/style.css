@@ -126,6 +126,13 @@ aside {
 .card {
     float: right;
     background-color: var(--primary-color);
+    border: var(--secondary-color) solid 5px;
+    border-radius: 10px;
+}
+
+.card-content {
+    padding: 20px 0 0 0 !important;
+    text-align: center;
 }
 
 #facility-address {
@@ -136,9 +143,11 @@ aside {
     background-color: var(--primary-color);
     font-size: 30px;
     color: white;
-    height: 45px;
+    height: auto;
     margin-left: 38px;
     margin-right: 36px;
+    border: var(--secondary-color) solid 5px;
+    border-radius: 10px;
 }
 
 .limit-text {
@@ -161,7 +170,8 @@ aside {
 .covid-emergency {
     background-color: var(--quaternary-color);
     color: white;
-    border-radius: 10%;
+    border: var(--tertiary-color) solid 5px;
+    border-radius: 10px;
 }
 
 .covid-description {
@@ -178,10 +188,7 @@ aside {
     list-style-type: disc;
 }
 
-
-
-.modal,
-.modal-footer {
+.modal {
     background-color: var(--primary-color);
 }
 
@@ -196,6 +203,10 @@ input {
 
 .modal-btn:focus {
     display: none;
+}
+
+iframe {
+    width: 51vw;
 }
 
 
@@ -217,6 +228,10 @@ input {
         margin-top: 50px;
     }
 
+    #limit-warning {
+        height: auto;
+    }
+
     .facilities-header {
         display: inline-block;
         margin-left: 40px;
@@ -224,7 +239,7 @@ input {
 
     .card-container {
         display: inline-block;
-        margin: 0 0 0 50px;
+        padding-left: 50px;
         width: 95%;
     }
 
@@ -263,6 +278,10 @@ input {
         width: 80%;
     }
 
+    .covid-information {
+        margin-right: 0px;
+    }
+
     #modal1,
     #modal2,
     #modal3 {
@@ -276,9 +295,9 @@ input {
 }
 
 @media only screen and (max-width: 775px) {
+
     .card-container {
         display: inline-block;
-        /* margin: 40px 40px 40px 110px; */
         width: 92vw;
     }
 
@@ -286,6 +305,10 @@ input {
         height: 40vh;
         width: 715px;
         margin-left: 200px;
+    }
+
+    .card-container {
+        padding: 0 0 0 30px;
     }
 
     .card {
@@ -319,7 +342,7 @@ input {
 
     iframe {
         height: 40vh;
-        width: 82vw;
+        width: 72vw;
     }
 }
 
@@ -344,8 +367,7 @@ input {
 
     .card-container{
         margin: 0px;
-        margin-left: 65px;
-        padding: 0px;
+        padding: 0 0 0 60px;
     }
 
     .card {
@@ -353,7 +375,7 @@ input {
     }
 
     #limit-warning {
-        height: 60px;
+        
         font-size: 14px;
     }
 

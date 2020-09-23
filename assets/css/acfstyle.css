@@ -291,6 +291,10 @@ input {
         margin-left: 200px;
     }
 
+    .loc-container {
+        margin-left: 0
+    }
+
     .loc {
         height: 450px;
     }
@@ -325,6 +329,11 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
+
+    h3 {
+        font-size: 28px;
+    }
+
     .site-title {
         width: 100%;
     }
