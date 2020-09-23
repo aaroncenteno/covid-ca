@@ -206,11 +206,7 @@ input {
     }
 
     .city-list {
-        height: 100px;
-    }
-
-    .current-city {
-        display: inline-block;
+        height: 200px;
     }
 
     .city-stats {
@@ -223,17 +219,29 @@ input {
 
     .facilities-header {
         display: inline-block;
-        margin-left: 180px;
+        margin-left: 40px;
     }
 
     .card-container {
         display: inline-block;
-        margin: 0 150px 0 150px;
+        margin: 0 0 0 50px;
+        width: 95%;
     }
 
     .card {
         margin: 20px;
-        height: 475px;
+        height: 450px;
+        width: 190px;
+        font-size: 14px;
+    }
+
+    .card-content {
+        text-align: center;
+        padding-left: 0px !important;
+    }
+
+    .card-title {
+        padding-left: 0px;
     }
 
     .stats-chart {
@@ -270,18 +278,19 @@ input {
 @media only screen and (max-width: 775px) {
     .card-container {
         display: inline-block;
-        margin: 40px 40px 40px 110px;
-        width: 80vw;
+        /* margin: 40px 40px 40px 110px; */
+        width: 92vw;
     }
 
     .stats-chart {
         height: 40vh;
-        width: 80vw;
+        width: 715px;
         margin-left: 200px;
     }
 
     .card {
         height: 450px;
+        width: 250px !important;
     }
 
     .covid-information {
@@ -290,10 +299,15 @@ input {
         margin-right: 0px;
         width: 72vw;
     }
+
     .covid-information-header {
         display: inline-block;
         margin-left: 90px;
         width: 70vw;
+    }
+
+    #limit-warning {
+        height: auto;
     }
 
     #modal1,
@@ -310,9 +324,14 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
+    .site-title {
+        width: 100%;
+    }
+
     .city-list {
         text-align: center;
     }
+    
     .stats-chart {
         height: 40vh;
         width: 8
@@ -325,11 +344,21 @@ input {
 
     .card-container{
         margin: 0px;
+        margin-left: 65px;
         padding: 0px;
     }
 
     .card {
-        height: 275px;
+        height: auto;
+    }
+
+    #limit-warning {
+        height: 60px;
+        font-size: 14px;
+    }
+
+    .limit-text {
+        padding-top: 10px;
     }
 
     .covid-description,

@@ -226,7 +226,11 @@ input {
 
     .facilities-header {
         display: inline-block;
-        margin-left: 180px;
+        margin-left: 190px;
+    }
+
+    .btn-back {
+        margin-left: 200px;
     }
 
     .loc-container {
@@ -237,6 +241,10 @@ input {
     .loc {
         margin: 20px;
         height: 475px;
+    }
+
+    .loc-item {
+        height: auto;
     }
 
     .stats-chart {
@@ -287,6 +295,10 @@ input {
         height: 450px;
     }
 
+    .loc-item {
+        height: auto;
+    }
+
     .covid-information {
         display: inline-block;
         margin-left: 100px;
@@ -313,17 +325,27 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
+    .site-title {
+        width: 100%;
+    }
+
     .city-list {
         text-align: center;
     }
+
     .stats-chart {
         height: 40vh;
         width: 8
         0vw;
     }
+
     .facilities-header {
         margin: 0px;
         margin-top: 30px;
+    }
+
+    .btn-back {
+        margin-left: 55px;
     }
 
     .loc-container{
@@ -361,5 +383,9 @@ input {
     iframe {
         height: 30vh;
         width: 68vw;
+    }
+
+    .loc-item {
+        height: auto;
     }
 }
