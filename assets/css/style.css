@@ -132,6 +132,19 @@ aside {
     color: var(--secondary-color);
 }
 
+#limit-warning {
+    background-color: var(--primary-color);
+    font-size: 30px;
+    color: white;
+    height: 45px;
+    margin-left: 38px;
+    margin-right: 36px;
+}
+
+.limit-text {
+    padding-left: 20px;
+}
+
 .covid-information-header {
     color: var(--quaternary-color);
     display: inline-block;
