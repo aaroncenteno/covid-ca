@@ -93,12 +93,13 @@ $(document).ready(function () {
 
   $("#city-search").on("keypress", function (e) {
     if (e.which == 13) {
-    var cityInputEl = $("#city-search").val();
-    searchButtonHandler(cityInputEl);
-    $("#city-search").val("")
-    $("#modal1").modal('close');
+      var cityInputEl = $("#city-search").val();
+      searchButtonHandler(cityInputEl);
+      $("#city-search").val("");
+      $("#modal1").modal('close');
     }
   });
+})
 
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
@@ -281,7 +282,6 @@ var getCoordinates = function (cityName) {
       var cityLongitude = data.results[0].geometry.location.lng;
       getTestSites(cityLatitude, cityLongitude, cityName);
     })
-    
 };
 
 
@@ -302,6 +302,7 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
         var cardContent = document.createElement("div");
         var card = document.createElement("div");
         var cardAddress = document.createElement("a");
+        
         var cardBody = document.createElement("div");
         facilitiesHeader.classList.remove("hide");
         currentCity.classList.remove("hide");
@@ -316,7 +317,14 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
           // console.log(cardAddress.val);
           cardAddress.textContent = data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
         }
-        cardAddress.setAttribute("href", "#modal2") ;
+        var cardEl=document.createElement("div");
+        var cardLat=document.createElement("a");
+        cardEl.classList = "hide"
+        cardLat.textContent=data.items[i].position.lat + "," + data.items[i].position.lng;
+        // console.log(cardLat.textContent);
+        cardContent.appendChild(cardEl);
+        cardEl.appendChild(cardLat);
+        cardAddress.setAttribute("href", "#modal2");
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
@@ -329,34 +337,36 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
       };
-      console.log(cardAddress.val);
-      // Set Data for Embedded Map and Navigate Button
-      $(document).on("click", ".facility-address", function() {
-        //console.log($(this).text());
-      navBtn.setAttribute("target", "_blank");
-      navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardAddress.val);
-      navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?q=" + cardAddress.val + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo");
-      console.log(cardAddress.val);
-      })
 
     })
     .then(function () {
-       // add text to warning container
-       limitWarningEl.innerHTML = "";
-       limitWarningEl.classList.remove("hide");
-       var limitText = document.createElement("p")
-       limitText.textContent = "To see all " + cityName + " County testing facilities, click ";
-       limitText.classList =  "limit-text";
-       var linkEl = document.createElement("a");
-       linkEl.textContent = "here";
-       linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
-       
-       // append to warning container
-       limitText.appendChild(linkEl);
-       limitWarningEl.appendChild(limitText);
-    })
-}
+      // add text to warning container
+      limitWarningEl.innerHTML = "";
+      limitWarningEl.classList.remove("hide");
+      var limitText = document.createElement("p")
+      limitText.textContent = "To see all " + cityName + " County testing facilities, click ";
+      limitText.classList =  "limit-text";
+      var linkEl = document.createElement("a");
+      linkEl.textContent = "here";
+      linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+      
+      // append to warning container
+      limitText.appendChild(linkEl);
+      limitWarningEl.appendChild(limitText);
+   })
+    // Set Data for Embedded Map and Navigate Button
+    $(document).on("click", ".facility-address", function() {
+    // console.log($(this.parentElement.parentElement.children[0].children[0].innerHTML).text());
+    var latLng = $(this.parentElement.parentElement.children[0].children[0].innerHTML).text();
+    var mapFacility=$(this.parentElement.parentElement.children[0].children[1]).text();
+    navHeader.textContent=mapFacility;
+    navBtn.setAttribute("target", "_blank");
+    navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + latLng);
+    navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?q=" + latLng + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo");
+    // console.log(cardAddress.val);
+    });
     
+}
 
 // // Construct link to all county facilities
 // var displayWarning = function(cityName) {
@@ -369,13 +379,12 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
 //   limitText.classList =  "limit-text";
 //   var linkEl = document.createElement("a");
 //   linkEl.textContent = "here";
-//   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+//   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);d .
   
 //   // append to warning container
 //   limitText.appendChild(linkEl);
 //   limitWarningEl.appendChild(limitText);
 // };
-
 
 
 $(document).on("click", ".collection-item", function () {
@@ -385,8 +394,8 @@ $(document).on("click", ".collection-item", function () {
 
 $(".collection").on("click", "li", function () {
   searchHistory($(this).text());
-})
+});
 
 searchButtonEl.addEventListener("click", searchButtonHandler);
-deleteButtonEl.addEventListener("click", deleteButtonHandler)
-loadCity();
+deleteButtonEl.addEventListener("click", deleteButtonHandler);
+loadCity()
