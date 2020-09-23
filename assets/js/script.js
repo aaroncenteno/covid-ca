@@ -12,12 +12,12 @@ var currentCity = document.querySelector(".current-city");
 var dataBaseInfo = [];
 var deleteButtonEl = document.querySelector("#clear-storage-btn")
 var facilitiesHeader = document.querySelector(".facilities-header");
+var limitWarningEl = document.querySelector("#limit-warning");
 var navBtn = document.querySelector("#navigate-button");
 var navContent = document.querySelector(".modal-content");
 var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
 var searchButtonEl = document.querySelector("#searchbutton");
-var limitWarningEl = document.querySelector("#limit-warning");
 
 
 var cityNames = {
