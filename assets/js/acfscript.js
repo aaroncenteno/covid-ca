@@ -1,5 +1,6 @@
 var locAction = document.querySelector(".loc-action");
 var locContainer = document.querySelector(".loc-container");
+var locList = document.querySelector(".loc-list");
 var chartEl = document.querySelector("#chart-container");
 var cities = [];
 var cityCasesEl = document.querySelector(".city-cases");
@@ -90,7 +91,7 @@ var appendCity = function (cntyName) {
   if (cities.indexOf(cntyName) === -1) {
     //append to list
     var cityItem = document.createElement("li");
-    cityItem.classList = "collection-item";
+    // cityItem.classList
     cityItem.textContent = cntyName;
     cityList.appendChild(cityItem);
   }
@@ -134,14 +135,14 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         locBody.classList = "loc-action";
         locAddress.classList = "facility-address modal-trigger";
         locAddress.id = "facility-address";
-        locAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        locAddress.textContent = " " + data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
         console.log(locAddress.textContent);
         locAddress.setAttribute("href", "#modal2") ;
         locTitle.classList = "loc-title";
         locTitle.textContent = data.items[i].title.split(":")[1];
         console.log(locTitle.textContent);
         locContent.classList = "loc-content white-text";
-        loc.classList = "loc darken-1 row s112 m5 l2";
+        loc.classList = "loc darken-1 row s12 m5 l2";
         
         //console.log(locTitle.textContent);
         //append loc title and address to the page
@@ -149,7 +150,8 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         locContent.appendChild(locAddress);
         locBody.appendChild(locContent);
         loc.appendChild(locBody);
-        locContainer.appendChild(loc);
+        locList.appendChild(loc);
+        locContainer.appendChild(locList);
         
       }
     });

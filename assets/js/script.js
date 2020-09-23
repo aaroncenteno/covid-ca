@@ -359,7 +359,8 @@ var getTestSites = function (cityLatitude, cityLongitude) {
 
 // Construct link to all county facilities
 var displayWarning = function(cityName) {
- // console.log(cityName)
+  limitWarningEl.innerHTML = "";
+  // console.log(cityName)
   // add text to warning container
   limitWarningEl.classList.remove("hide");
   var limitText = document.createElement("p")
