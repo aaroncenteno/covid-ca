@@ -100,18 +100,10 @@ $(document).ready(function () {
     }
   });
 
-  // $(".modal-close").on("keypress", function (e) {
-  //   if (e.which == 13) {
-      
-  //   }
-  // });
-
-})
-
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
-  // event.preventDefault();
+  event.preventDefault();
   //get value
   var cityName = cityInputEl.value.trim();
   var splitStr = cityName.toLowerCase().split(' ');
@@ -123,10 +115,8 @@ var searchButtonHandler = function (event) {
 
   //add cityName to list
   if (cityNames[cityName] === null) {
-    //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
     cardContainer.innerHTML = "";
-    // cityInputEl.value = "";
     chartEl.innerHTML= "";
     appendCity(cityName);
     //add to local storage
@@ -156,6 +146,7 @@ var searchHistory = function (cityName) {
     
   displayWarning(cityName);
 };
+
 //function to delete city history
 var deleteButtonHandler = function () {
   var cityItem = $(".collection-item");
@@ -235,6 +226,7 @@ var getResults = function (cityName) {
           } 
         }  
       }
+      
       var a = data.result.records.length - 1;
             var dateFormat = moment(data.result.records[a].date).format("MMM");
             date.push(dateFormat);
@@ -292,9 +284,6 @@ var getCoordinates = function (cityName) {
     
 };
 
-
-
-//hardcoding testing site API until we have a drop down select menu for city
 var getTestSites = function (cityLatitude, cityLongitude) {
   var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cityLatitude + "," + cityLongitude + "&limit=5";
   fetch(testingApiUrl)
@@ -331,25 +320,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         
       }
      });
-    //  displayWarning(cityName);
-     //.then(function(cityName) {
-    //    // add text to warning container
-    //    limitWarningEl.classList.remove("hide");
-    //    var limitText = document.createElement("p")
-    //    limitText.textContent = "To see all " + cityName + " testing facilities, click ";
-    //    limitText.classList =  "limit-text";
-    //    var linkEl = document.createElement("a");
-    //    linkEl.textContent = "here";
-    //    linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
-       
-     
-    //  // append to warning container
-    //  limitText.appendChild(linkEl);
-    //  limitWarningEl.appendChild(limitText);
-    //  alert("complete");
-    // });
-  }
-    
 
 // Construct link to all county facilities
 var displayWarning = function(cityName) {
@@ -370,7 +340,6 @@ limitWarningEl.appendChild(limitText);
 };
 
 // Set Data for Embedded Map and Navigate Button
-
 $(document).on("click", ".facility-address", function ($c) {
   navBtn.setAttribute("target", "_blank");
   navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
