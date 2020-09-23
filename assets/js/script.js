@@ -368,7 +368,7 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
 //   limitText.classList =  "limit-text";
 //   var linkEl = document.createElement("a");
 //   linkEl.textContent = "here";
-//   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+//   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);d .
   
 //   // append to warning container
 //   limitText.appendChild(linkEl);
