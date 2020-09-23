@@ -142,7 +142,7 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         locTitle.textContent = data.items[i].title.split(":")[1];
         console.log(locTitle.textContent);
         locContent.classList = "loc-content white-text";
-        loc.classList = "loc darken-1 row s12 m5 l2";
+        loc.classList = "loc darken-1 row loc-item";
         
         //console.log(locTitle.textContent);
         //append loc title and address to the page

@@ -123,7 +123,7 @@ var searchButtonHandler = function (event) {
     saveCity(cityName);
     getCoordinates(cityName);
     getResults(cityName);
-    displayWarning(cityName);
+    // displayWarning(cityName);
   }
   var myChartEl = document.createElement("canvas");
     myChartEl.id = "myChart";
@@ -144,7 +144,7 @@ var searchHistory = function (cityName) {
     myChartEl.id = "myChart";
     chartEl.appendChild(myChartEl);
     
-  displayWarning(cityName);
+  // displayWarning(cityName);
 };
 
 //function to delete city history
@@ -279,18 +279,22 @@ var getCoordinates = function (cityName) {
     .then(function (data) {
       var cityLatitude = data.results[0].geometry.location.lat;
       var cityLongitude = data.results[0].geometry.location.lng;
-      getTestSites(cityLatitude, cityLongitude);
+      getTestSites(cityLatitude, cityLongitude, cityName);
     })
     
 };
 
-var getTestSites = function (cityLatitude, cityLongitude) {
+
+//hardcoding testing site API until we have a drop down select menu for city
+var getTestSites = function (cityLatitude, cityLongitude, cityName) {
   var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cityLatitude + "," + cityLongitude + "&limit=5";
+  // console.log(cityName)
   fetch(testingApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      // console.log(data.items[0].address.county);
       cardContainer.innerHTML = "";
       for (var i = 0; i < 5; i++) {
         //add testing center title to cards, add testing address to cards
@@ -303,13 +307,20 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         currentCity.classList.remove("hide");
         cardBody.classList = "card-action";
         cardAddress.classList = "facility-address modal-trigger";
+        cardAddress.val = data.items[i].position.lat + "," + data.items[i].position.lng;
         cardAddress.id = "facility-address";
+        if (data.items[i].address.houseNumber) {
         cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        } else {
+          // cardAddress.val = cityLatitude, cityLongitude;
+          // console.log(cardAddress.val);
+          cardAddress.textContent = data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        }
         cardAddress.setAttribute("href", "#modal2") ;
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
-        card.classList = "card darken-1 col s112 m5 l2";
+        card.classList = "card darken-1 col s12 m4 offset-m1 l2";
         //navHeader.textContent=faciltyName.textContent;
         //append card title and address to the page
         cardContent.appendChild(cardTitle);
@@ -317,34 +328,54 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         cardBody.appendChild(cardAddress);
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
-        
-      }
-     });
+      };
+      console.log(cardAddress.val);
+      // Set Data for Embedded Map and Navigate Button
+      $(document).on("click", ".facility-address", function() {
+        //console.log($(this).text());
+      navBtn.setAttribute("target", "_blank");
+      navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + cardAddress.val);
+      navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?q=" + cardAddress.val + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo");
+      console.log(cardAddress.val);
+      })
 
-// Construct link to all county facilities
-var displayWarning = function(cityName) {
-  limitWarningEl.innerHTML = "";
-  // add text to warning container
-  limitWarningEl.classList.remove("hide");
-  var limitText = document.createElement("p")
-  limitText.textContent = "To see all " + cityName + " County" + " testing facilities, click ";
-  limitText.classList =  "limit-text";
-  var linkEl = document.createElement("a");
-  linkEl.textContent = "here";
-  linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+    })
+    .then(function () {
+       // add text to warning container
+       limitWarningEl.innerHTML = "";
+       limitWarningEl.classList.remove("hide");
+       var limitText = document.createElement("p")
+       limitText.textContent = "To see all " + cityName + " County testing facilities, click ";
+       limitText.classList =  "limit-text";
+       var linkEl = document.createElement("a");
+       linkEl.textContent = "here";
+       linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+       
+       // append to warning container
+       limitText.appendChild(linkEl);
+       limitWarningEl.appendChild(limitText);
+    })
+}
+    
+
+// // Construct link to all county facilities
+// var displayWarning = function(cityName) {
   
+//   // console.log(cityName)
+//   // add text to warning container
+//   limitWarningEl.classList.remove("hide");
+//   var limitText = document.createElement("p")
+//   limitText.textContent = "To see all " + cityName + " County" + " testing facilities, click ";
+//   limitText.classList =  "limit-text";
+//   var linkEl = document.createElement("a");
+//   linkEl.textContent = "here";
+//   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+  
+//   // append to warning container
+//   limitText.appendChild(linkEl);
+//   limitWarningEl.appendChild(limitText);
+// };
 
-// append to warning container
-limitText.appendChild(linkEl);
-limitWarningEl.appendChild(limitText);
-};
-
-// Set Data for Embedded Map and Navigate Button
-$(document).on("click", ".facility-address", function ($c) {
-  navBtn.setAttribute("target", "_blank");
-  navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
-  navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
-})
 
 
 $(document).on("click", ".collection-item", function () {
