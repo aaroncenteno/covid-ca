@@ -143,6 +143,13 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         console.log(locTitle.textContent);
         locContent.classList = "loc-content white-text";
         loc.classList = "loc darken-1 row loc-item";
+        var cardEl=document.createElement("div");
+        var cardLat=document.createElement("a");
+        cardEl.classList = "hide"
+        cardLat.textContent=data.items[i].position.lat + "," + data.items[i].position.lng;
+        // console.log(cardLat.textContent);
+        locContent.appendChild(cardEl);
+        cardEl.appendChild(cardLat);
         
         //console.log(locTitle.textContent);
         //append loc title and address to the page
@@ -152,18 +159,29 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         loc.appendChild(locBody);
         locList.appendChild(loc);
         locContainer.appendChild(locList);
-        
       }
+    })
+    // Set Data for Embedded Map and Navigate Button
+    $(document).on("click", ".facility-address", function() {
+    // console.log($(this.parentElement.parentElement.children[0].children[0].innerHTML).text());
+    var latLng = $(this.parentElement.parentElement.children[0].children[0].innerHTML).text();
+    var mapFacility=$(this.parentElement.parentElement.children[0].children[1]).text();
+    navHeader.textContent=mapFacility;
+    navBtn.setAttribute("target", "_blank");
+    navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + latLng);
+    navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?q=" + latLng + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo");
+    // console.log(cardAddress.val);
     });
 }
-// Set Data for Embedded Map and Navigate Button
 
-$(document).on("click", ".facility-address", function ($c) {
-   //console.log($(this).text());
-  navBtn.setAttribute("target", "_blank");
-  navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
-  navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
-})
+// // Set Data for Embedded Map and Navigate Button
+
+// $(document).on("click", ".facility-address", function ($c) {
+//    //console.log($(this).text());
+//   navBtn.setAttribute("target", "_blank");
+//   navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
+//   navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
+// })
 
 $(document).on("click", ".collection-item", function () {
   // console.log($(this).text());
