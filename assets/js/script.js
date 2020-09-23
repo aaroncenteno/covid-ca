@@ -104,7 +104,7 @@ $(document).ready(function () {
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
-  event.preventDefault();
+  // event.preventDefault;
   //get value
   var cityName = cityInputEl.value.trim();
   var splitStr = cityName.toLowerCase().split(' ');

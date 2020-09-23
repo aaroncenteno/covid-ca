@@ -4,6 +4,7 @@
     --tertiary-color: #c5339ee7;
     --quaternary-color: #860c66;
     --quinary-color: #0d47a1;
+    --senary-color: #72a1e7;
 }
 
 body {
@@ -126,6 +127,13 @@ aside {
 .card {
     float: right;
     background-color: var(--primary-color);
+    border: var(--secondary-color) solid 5px;
+    border-radius: 10px;
+}
+
+.card-content {
+    padding: 20px 0 0 0 !important;
+    text-align: center;
 }
 
 #facility-address {
@@ -136,9 +144,11 @@ aside {
     background-color: var(--primary-color);
     font-size: 30px;
     color: white;
-    height: 45px;
+    height: auto;
     margin-left: 38px;
     margin-right: 36px;
+    border: var(--secondary-color) solid 5px;
+    border-radius: 10px;
 }
 
 .limit-text {
@@ -161,7 +171,8 @@ aside {
 .covid-emergency {
     background-color: var(--quaternary-color);
     color: white;
-    border-radius: 10%;
+    border: var(--tertiary-color) solid 5px;
+    border-radius: 10px;
 }
 
 .covid-description {
@@ -178,10 +189,7 @@ aside {
     list-style-type: disc;
 }
 
-
-
-.modal,
-.modal-footer {
+.modal {
     background-color: var(--primary-color);
 }
 
@@ -198,8 +206,12 @@ input {
     display: none;
 }
 
+iframe {
+    width: 51vw;
+}
 
-@media only screen and (max-width: 995px) {
+
+@media only screen and (max-width: 995px){
     aside {
         text-align: center;
         margin-left: 150px;
@@ -217,6 +229,10 @@ input {
         margin-top: 50px;
     }
 
+    #limit-warning {
+        height: auto;
+    }
+
     .facilities-header {
         display: inline-block;
         margin-left: 40px;
@@ -224,14 +240,14 @@ input {
 
     .card-container {
         display: inline-block;
-        margin: 0 0 0 50px;
+        padding-left: 50px;
         width: 95%;
     }
 
     .card {
         margin: 20px;
         height: 450px;
-        width: 190px;
+        width: 35% !important;
         font-size: 14px;
     }
 
@@ -253,14 +269,17 @@ input {
     .covid-symptoms,
     .covid-emergency {
         margin-top: 20px;
-        width: 100%;
+        width: 100% !important;
     }
 
-    .covid-information,
     .covid-information-header {
-        display: inline-block;
-        margin-left: 125px;
+        margin-left: 90px;
+    }
+
+    .covid-information {
+        margin: 0px;
         width: 80%;
+        display: inline-block;
     }
 
     #modal1,
@@ -276,9 +295,9 @@ input {
 }
 
 @media only screen and (max-width: 775px) {
+
     .card-container {
         display: inline-block;
-        /* margin: 40px 40px 40px 110px; */
         width: 92vw;
     }
 
@@ -288,14 +307,18 @@ input {
         margin-left: 200px;
     }
 
+    .card-container {
+        padding: 0 0 0 30px;
+    }
+
     .card {
         height: 450px;
-        width: 250px !important;
+        width: 35% !important;
     }
 
     .covid-information {
         display: inline-block;
-        margin-left: 100px;
+        margin-left: 0px;
         margin-right: 0px;
         width: 72vw;
     }
@@ -319,7 +342,7 @@ input {
 
     iframe {
         height: 40vh;
-        width: 82vw;
+        width: 72vw;
     }
 }
 
@@ -344,16 +367,16 @@ input {
 
     .card-container{
         margin: 0px;
-        margin-left: 65px;
-        padding: 0px;
+        padding: 0 0 0 40px;
     }
 
     .card {
         height: auto;
+        width: 100% !important;
     }
 
     #limit-warning {
-        height: 60px;
+        
         font-size: 14px;
     }
 

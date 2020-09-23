@@ -4,6 +4,7 @@
     --tertiary-color: #c5339ee7;
     --quaternary-color: #860c66;
     --quinary-color: #0d47a1;
+    --senary-color: #72a1e7;
 }
 
 body {
@@ -22,86 +23,6 @@ body {
     box-shadow: rgba(0, 0, 0, .5);
     padding-top: 0px;
     padding-right: 15px;
-
-}
-
-/* Aside Styling */
-aside {
-    padding: 20px;
-}
-
-.city-list {
-    height: 320px;
-    overflow: hidden; 
-    overflow-y: scroll;
-}
-
-.search-btn {
-    margin-top: 20px;
-    background-color: var(--secondary-color);
-    color: var(--quinary-color);
-}
-
-.search-btn,
-.clear-btn,
-.list-group {
-    width: 100%;
-}
-
-.collection-item:hover {
-    z-index: 1;
-    color:#495057 ;
-    text-decoration: none;
-    background-color:var(--secondary-color);
-    transition: 0.5s;
-}
-
-.clear-btn {
-    background-color: var(--quaternary-color);
-}
-
-.clear-btn:hover {
-    background-color: var(--tertiary-color) ;
-}
-
-.clear-btn:focus {
-    background-color: var(--quaternary-color);
-}
-
-/* Aside Styling Ends */
-
-/* Searched City Styling */
-
-.city-stats {
-    padding-left: 50px;
-}
-
-.city-header {
-    font-weight: bold;
-    font-size: 50px;
-}
-
-.city-header,
-.city-cases {
-    color: var(--quinary-color);
-}
-
-.city-cases,
-.city-deaths {
-    padding-top: 10px;
-    font-size: 25px;
-}
-
-.city-deaths {
-    color: var(--quaternary-color);
-}
-
-.stats-chart {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    height: 450px;
-    width: 80vw;
 }
 
 /* Facilities Container */
@@ -111,6 +32,7 @@ aside {
     margin-right: 140px;
     color: white;
     background: var(--quinary-color);
+    border: var(--senary-color) solid 5px;
     border-radius: 10px;
 }
 
@@ -118,7 +40,8 @@ aside {
     background: var(--primary-color);
     font-size: 20px;
     margin-left: 101px;
-    margin-top: 25px;
+    margin: 25px 0 25px 0;
+    height: auto;
 }
 
 .loc-container {
@@ -148,41 +71,6 @@ aside {
     color: var(--secondary-color);
 }
 
-.covid-information-header {
-    color: var(--quaternary-color);
-    display: inline-block;
-}
-
-.covid-information {
-    display: flex;
-    margin-right: 100px;
-    padding-top: 50px;
-}
-
-.covid-description,
-.covid-symptoms,
-.covid-emergency {
-    background-color: var(--quaternary-color);
-    color: white;
-    border-radius: 10%;
-}
-
-.covid-description {
-    font-size: 25px;
-}
-
-.covid-symptoms,
-.covid-emergency {
-    font-size: 20px;
-}
-
-.symptoms-list {
-    font-size: 16px;
-    list-style-type: disc;
-}
-
-
-
 .modal,
 .modal-footer {
     background-color: var(--primary-color);
@@ -203,39 +91,9 @@ input {
 
 
 @media only screen and (max-width: 995px) {
-    aside {
-        text-align: center;
-        margin-left: 150px;
-    }
-
-    .city-list {
-        height: 100px;
-    }
-
-    .current-city {
-        display: inline-block;
-    }
-
-    .city-stats {
-        text-align: center;
-    }
-
-    .stats-chart {
-        margin-top: 50px;
-    }
-
-    .facilities-header {
-        display: inline-block;
-        margin-left: 190px;
-    }
-
-    .btn-back {
-        margin-left: 200px;
-    }
 
     .loc-container {
         display: inline-block;
-        margin: 0 150px 0 150px;
     }
 
     .loc {
@@ -245,25 +103,6 @@ input {
 
     .loc-item {
         height: auto;
-    }
-
-    .stats-chart {
-        height: 60vh;
-        width: 80vw;
-    }
-
-    .covid-description,
-    .covid-symptoms,
-    .covid-emergency {
-        margin-top: 20px;
-        width: 100%;
-    }
-
-    .covid-information,
-    .covid-information-header {
-        display: inline-block;
-        margin-left: 125px;
-        width: 80%;
     }
 
     #modal1,
@@ -281,14 +120,10 @@ input {
 @media only screen and (max-width: 775px) {
     .loc-container {
         display: inline-block;
-        margin: 40px 40px 40px 110px;
-        width: 80vw;
     }
 
-    .stats-chart {
-        height: 40vh;
-        width: 80vw;
-        margin-left: 200px;
+    .loc-container {
+        margin-left: 0
     }
 
     .loc {
@@ -297,18 +132,6 @@ input {
 
     .loc-item {
         height: auto;
-    }
-
-    .covid-information {
-        display: inline-block;
-        margin-left: 100px;
-        margin-right: 0px;
-        width: 72vw;
-    }
-    .covid-information-header {
-        display: inline-block;
-        margin-left: 90px;
-        width: 70vw;
     }
 
     #modal1,
@@ -325,23 +148,13 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
+
+    h3 {
+        font-size: 28px;
+    }
+
     .site-title {
         width: 100%;
-    }
-
-    .city-list {
-        text-align: center;
-    }
-
-    .stats-chart {
-        height: 40vh;
-        width: 8
-        0vw;
-    }
-
-    .facilities-header {
-        margin: 0px;
-        margin-top: 30px;
     }
 
     .btn-back {
@@ -357,20 +170,8 @@ input {
         height: 275px;
     }
 
-    .covid-description,
-    .covid-symptoms,
-    .covid-emergency {
-        width: 100%;
-    }
-
-    .covid-information,
-    .covid-information-header {
-        margin-top: 15px;
-        margin-right: 0px;
-        margin-left: 20px;
-        padding-top: 0px;
-        display: inline-block;
-        width: 90%;
+    .loc-item {
+        height: auto;
     }
 
     #modal1,
@@ -383,9 +184,5 @@ input {
     iframe {
         height: 30vh;
         width: 68vw;
-    }
-
-    .loc-item {
-        height: auto;
     }
 }
