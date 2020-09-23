@@ -211,7 +211,7 @@ iframe {
 }
 
 
-@media only screen and (max-width: 995px) {
+@media only screen and (max-width: 995px){
     aside {
         text-align: center;
         margin-left: 150px;
@@ -247,7 +247,7 @@ iframe {
     .card {
         margin: 20px;
         height: 450px;
-        width: 190px;
+        width: 35% !important;
         font-size: 14px;
     }
 
@@ -269,18 +269,17 @@ iframe {
     .covid-symptoms,
     .covid-emergency {
         margin-top: 20px;
-        width: 100%;
+        width: 100% !important;
     }
 
-    .covid-information,
     .covid-information-header {
-        display: inline-block;
-        margin-left: 125px;
-        width: 80%;
+        margin-left: 90px;
     }
 
     .covid-information {
-        margin-right: 0px;
+        margin: 0px;
+        width: 80%;
+        display: inline-block;
     }
 
     #modal1,
@@ -314,12 +313,12 @@ iframe {
 
     .card {
         height: 450px;
-        width: 250px !important;
+        width: 35% !important;
     }
 
     .covid-information {
         display: inline-block;
-        margin-left: 100px;
+        margin-left: 0px;
         margin-right: 0px;
         width: 72vw;
     }
@@ -368,11 +367,12 @@ iframe {
 
     .card-container{
         margin: 0px;
-        padding: 0 0 0 60px;
+        padding: 0 0 0 40px;
     }
 
     .card {
         height: auto;
+        width: 100% !important;
     }
 
     #limit-warning {
