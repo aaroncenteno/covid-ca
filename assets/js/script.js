@@ -93,12 +93,13 @@ $(document).ready(function () {
 
   $("#city-search").on("keypress", function (e) {
     if (e.which == 13) {
-    var cityInputEl = $("#city-search").val();
-    searchButtonHandler(cityInputEl);
-    $("#city-search").val("")
-    $("#modal1").modal('close');
+      var cityInputEl = $("#city-search").val();
+      searchButtonHandler(cityInputEl);
+      $("#city-search").val("");
+      $("#modal1").modal('close');
     }
   });
+})
 
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
@@ -281,7 +282,6 @@ var getCoordinates = function (cityName) {
       var cityLongitude = data.results[0].geometry.location.lng;
       getTestSites(cityLatitude, cityLongitude, cityName);
     })
-    
 };
 
 
@@ -316,7 +316,7 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
           // console.log(cardAddress.val);
           cardAddress.textContent = data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
         }
-        cardAddress.setAttribute("href", "#modal2") ;
+        cardAddress.setAttribute("href", "#modal2");
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
@@ -356,7 +356,6 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
        limitWarningEl.appendChild(limitText);
     })
 }
-    
 
 // // Construct link to all county facilities
 // var displayWarning = function(cityName) {
@@ -385,8 +384,8 @@ $(document).on("click", ".collection-item", function () {
 
 $(".collection").on("click", "li", function () {
   searchHistory($(this).text());
-})
+});
 
 searchButtonEl.addEventListener("click", searchButtonHandler);
-deleteButtonEl.addEventListener("click", deleteButtonHandler)
-loadCity();
+deleteButtonEl.addEventListener("click", deleteButtonHandler);
+loadCity()
