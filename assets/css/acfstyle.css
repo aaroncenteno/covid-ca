@@ -105,11 +105,20 @@ aside {
 }
 
 /* Facilities Container */
-.facilities-header,
-.covid-information-header {
+.facilities-header {
     margin-top: 60px;
-    margin-left: 22px;
-    color: var(--quinary-color);
+    margin-left: 100px;
+    margin-right: 140px;
+    color: white;
+    background: var(--quinary-color);
+    border-radius: 10px;
+}
+
+.btn-back {
+    background: var(--primary-color);
+    font-size: 20px;
+    margin-left: 101px;
+    margin-top: 25px;
 }
 
 .loc-container {
@@ -119,9 +128,20 @@ aside {
     padding-top: 40px;
 }
 
-.loc {
-    /* float: right; */
-    background-color: var(--primary-color); 
+.loc-list {
+    height: 550px;
+    overflow: hidden; 
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+
+.loc-content {
+    background: var(--primary-color);
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-radius: 10px;
 }
 
 #facility-address {

@@ -283,7 +283,7 @@ var getResults = function (cityName) {
 
 //FUNCTION to convert CITYNAME into Long/Lat coordinates
 var getCoordinates = function (cityName) {
-  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "county" + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
   fetch(coordinatesApiUrl)
     .then(function (response) {
       return response.json();
@@ -335,24 +335,45 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         cardContainer.appendChild(card);
         
       }
-    })
-  };
+     });
+    //  displayWarning(cityName);
+     //.then(function(cityName) {
+    //   // console.log(cityName)
+    //    // add text to warning container
+    //    limitWarningEl.classList.remove("hide");
+    //    var limitText = document.createElement("p")
+    //    limitText.textContent = "To see all " + cityName + " testing facilities, click ";
+    //    limitText.classList =  "limit-text";
+    //    var linkEl = document.createElement("a");
+    //    linkEl.textContent = "here";
+    //    linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+       
+     
+    //  // append to warning container
+    //  limitText.appendChild(linkEl);
+    //  limitWarningEl.appendChild(limitText);
+    //  alert("complete");
+    // });
+  }
     
 
-//Construct link to all county facilities
+// Construct link to all county facilities
 var displayWarning = function(cityName) {
- // console.log(cityName)
+  limitWarningEl.innerHTML = "";
+  // console.log(cityName)
   // add text to warning container
-  
-  limitWarningEl.textContent = "To see all " + cityName + " testing facilities, click ";
+  limitWarningEl.classList.remove("hide");
+  var limitText = document.createElement("p")
+  limitText.textContent = "To see all " + cityName + " County" + " testing facilities, click ";
+  limitText.classList =  "limit-text";
   var linkEl = document.createElement("a");
   linkEl.textContent = "here";
   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
   
 
 // append to warning container
-limitWarningEl.appendChild(linkEl);
-
+limitText.appendChild(linkEl);
+limitWarningEl.appendChild(limitText);
 };
 
 // Set Data for Embedded Map and Navigate Button
