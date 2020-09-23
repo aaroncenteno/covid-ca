@@ -178,7 +178,6 @@ var appendCity = function (cityName) {
 //function to add city to local storage
 var saveCity = function (cityName) {
   //array for old searches
-  // console.log(cities.indexOf(cityName));
   if (cities.indexOf(cityName) === -1) {
     cities.push(cityName);
     localStorage.setItem("cities", JSON.stringify(cities));
@@ -221,14 +220,11 @@ var getResults = function (cityName) {
       var a = moment([2020, 3]);
       var b = moment([moment().get('year'), moment().get('month')]);
       var monthCount = b.diff(a,'months');
-      // console.log(monthCount);
       for (j = -1; j <= monthCount; j++) {
 
         // Initial Date of Covid Case Recording
         var month = moment([2020, 3, 18]).add(j, 'month');
-        // console.log(moment(month).format('MM YYYY'));
         var lastDay = new Date((moment(month).format('YYYY')), (moment(month).format('MM')), 0);
-        // console.log(lastDay);
         for  (i = 0; i < data.result.records.length; i++) {
           var compareDate = moment(lastDay).format("YYYY-MM-DD" + "T00:00:00");
           if (data.result.records[i].date.indexOf(compareDate) !== -1)  
@@ -326,7 +322,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
         cardContent.classList = "card-content white-text";
         card.classList = "card darken-1 col s112 m5 l2";
         //navHeader.textContent=faciltyName.textContent;
-        //console.log(cardTitle.textContent);
         //append card title and address to the page
         cardContent.appendChild(cardTitle);
         card.appendChild(cardContent);
@@ -338,7 +333,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
      });
     //  displayWarning(cityName);
      //.then(function(cityName) {
-    //   // console.log(cityName)
     //    // add text to warning container
     //    limitWarningEl.classList.remove("hide");
     //    var limitText = document.createElement("p")
@@ -360,7 +354,6 @@ var getTestSites = function (cityLatitude, cityLongitude) {
 // Construct link to all county facilities
 var displayWarning = function(cityName) {
   limitWarningEl.innerHTML = "";
-  // console.log(cityName)
   // add text to warning container
   limitWarningEl.classList.remove("hide");
   var limitText = document.createElement("p")
@@ -379,7 +372,6 @@ limitWarningEl.appendChild(limitText);
 // Set Data for Embedded Map and Navigate Button
 
 $(document).on("click", ".facility-address", function ($c) {
-   //console.log($(this).text());
   navBtn.setAttribute("target", "_blank");
   navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + $(this).text());
   navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo&q=" + $(this).text());
@@ -387,7 +379,6 @@ $(document).on("click", ".facility-address", function ($c) {
 
 
 $(document).on("click", ".collection-item", function () {
-  // console.log($(this).text());
   getCoordinates($(this).text());
   getResults($(this).text());
 });
