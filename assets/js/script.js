@@ -12,12 +12,12 @@ var currentCity = document.querySelector(".current-city");
 var dataBaseInfo = [];
 var deleteButtonEl = document.querySelector("#clear-storage-btn")
 var facilitiesHeader = document.querySelector(".facilities-header");
+var limitWarningEl = document.querySelector("#limit-warning");
 var navBtn = document.querySelector("#navigate-button");
 var navContent = document.querySelector(".modal-content");
 var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
 var searchButtonEl = document.querySelector("#searchbutton");
-var limitWarningEl = document.querySelector("#limit-warning");
 
 
 var cityNames = {
@@ -93,25 +93,18 @@ $(document).ready(function () {
 
   $("#city-search").on("keypress", function (e) {
     if (e.which == 13) {
-    var cityInputEl = $("#city-search").val();
-    searchButtonHandler(cityInputEl);
-    $("#city-search").val("")
-    $("#modal1").modal('close');
+      var cityInputEl = $("#city-search").val();
+      searchButtonHandler(cityInputEl);
+      $("#city-search").val("");
+      $("#modal1").modal('close');
     }
   });
-
-  // $(".modal-close").on("keypress", function (e) {
-  //   if (e.which == 13) {
-      
-  //   }
-  // });
-
 })
 
 //function to grab user's city search choice
 var searchButtonHandler = function (event) {
   //prevent browser from sending user's input data to a URL
-  // event.preventDefault();
+  event.preventDefault();
   //get value
   var cityName = cityInputEl.value.trim();
   var splitStr = cityName.toLowerCase().split(' ');
@@ -123,10 +116,8 @@ var searchButtonHandler = function (event) {
 
   //add cityName to list
   if (cityNames[cityName] === null) {
-    //make sure cityName is one of the counties on the drop down list (if (cityName === data[i]????))
     //reset cityInput
     cardContainer.innerHTML = "";
-    // cityInputEl.value = "";
     chartEl.innerHTML= "";
     appendCity(cityName);
     //add to local storage
@@ -156,6 +147,7 @@ var searchHistory = function (cityName) {
     
   // displayWarning(cityName);
 };
+
 //function to delete city history
 var deleteButtonHandler = function () {
   var cityItem = $(".collection-item");
@@ -178,7 +170,6 @@ var appendCity = function (cityName) {
 //function to add city to local storage
 var saveCity = function (cityName) {
   //array for old searches
-  // console.log(cities.indexOf(cityName));
   if (cities.indexOf(cityName) === -1) {
     cities.push(cityName);
     localStorage.setItem("cities", JSON.stringify(cities));
@@ -221,14 +212,11 @@ var getResults = function (cityName) {
       var a = moment([2020, 3]);
       var b = moment([moment().get('year'), moment().get('month')]);
       var monthCount = b.diff(a,'months');
-      // console.log(monthCount);
       for (j = -1; j <= monthCount; j++) {
 
         // Initial Date of Covid Case Recording
         var month = moment([2020, 3, 18]).add(j, 'month');
-        // console.log(moment(month).format('MM YYYY'));
         var lastDay = new Date((moment(month).format('YYYY')), (moment(month).format('MM')), 0);
-        // console.log(lastDay);
         for  (i = 0; i < data.result.records.length; i++) {
           var compareDate = moment(lastDay).format("YYYY-MM-DD" + "T00:00:00");
           if (data.result.records[i].date.indexOf(compareDate) !== -1)  
@@ -239,6 +227,7 @@ var getResults = function (cityName) {
           } 
         }  
       }
+      
       var a = data.result.records.length - 1;
             var dateFormat = moment(data.result.records[a].date).format("MMM");
             date.push(dateFormat);
@@ -293,9 +282,7 @@ var getCoordinates = function (cityName) {
       var cityLongitude = data.results[0].geometry.location.lng;
       getTestSites(cityLatitude, cityLongitude, cityName);
     })
-    
 };
-
 
 
 //hardcoding testing site API until we have a drop down select menu for city
@@ -329,13 +316,12 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
           // console.log(cardAddress.val);
           cardAddress.textContent = data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
         }
-        cardAddress.setAttribute("href", "#modal2") ;
+        cardAddress.setAttribute("href", "#modal2");
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
         card.classList = "card darken-1 col s12 m4 offset-m1 l2";
         //navHeader.textContent=faciltyName.textContent;
-        //console.log(cardTitle.textContent);
         //append card title and address to the page
         cardContent.appendChild(cardTitle);
         card.appendChild(cardContent);
@@ -370,7 +356,6 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
        limitWarningEl.appendChild(limitText);
     })
 }
-    
 
 // // Construct link to all county facilities
 // var displayWarning = function(cityName) {
@@ -392,15 +377,14 @@ var getTestSites = function (cityLatitude, cityLongitude, cityName) {
 
 
 $(document).on("click", ".collection-item", function () {
-  // console.log($(this).text());
   getCoordinates($(this).text());
   getResults($(this).text());
 });
 
 $(".collection").on("click", "li", function () {
   searchHistory($(this).text());
-})
+});
 
 searchButtonEl.addEventListener("click", searchButtonHandler);
-deleteButtonEl.addEventListener("click", deleteButtonHandler)
-loadCity();
+deleteButtonEl.addEventListener("click", deleteButtonHandler);
+loadCity()
