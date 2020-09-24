@@ -1,3 +1,4 @@
+/* Color Palette */
 :root {
     --primary-color: #006064;
     --secondary-color: #80cbc4;
@@ -7,16 +8,19 @@
     --senary-color: #72a1e7;
 }
 
+/* Set Font */
 body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Header Styling */
 .header {
     background-color: var(--primary-color);
     height: 80px;
     padding-top: 10px;
 }
 
+/* Icon Styling */
 #coronaimage {
     max-height: 50px;
     border-radius: 50%;
@@ -36,6 +40,7 @@ body {
     border-radius: 10px;
 }
 
+/* Back Button Styling */
 .btn-back {
     background: var(--primary-color);
     font-size: 20px;
@@ -44,13 +49,14 @@ body {
     height: auto;
 }
 
+/* Container for list */
 .cnty-container {
-    /* display: flex; */
     padding-right: 40px;
     margin: auto;
     padding-top: 40px;
 }
 
+/* List of Facilities */
 .cnty-list {
     height: 550px;
     overflow: hidden; 
@@ -58,7 +64,7 @@ body {
     border-radius: 10px;
 }
 
-
+/* List Items */
 .cnty-content {
     background: var(--primary-color);
     line-height: 1.5rem;
@@ -67,10 +73,12 @@ body {
     border-radius: 10px;
 }
 
+/* Address Link Styling */
 #facility-address {
     color: var(--secondary-color);
 }
 
+/* Modal Styling */
 .modal,
 .modal-footer {
     background-color: var(--primary-color);
@@ -93,6 +101,7 @@ iframe {
     width: 51vw;
 }
 
+/* Media Query for 995pc */
 @media only screen and (max-width: 995px) {
     .loc-container {
         display: inline-block;
@@ -119,6 +128,7 @@ iframe {
     }
 }
 
+/* Media Query for 775px */
 @media only screen and (max-width: 775px) {
   
     .loc-container {
@@ -150,6 +160,7 @@ iframe {
     }
 }
 
+/* Media Query for 600px */
 @media only screen and (max-width: 600px) {
 
     h3 {

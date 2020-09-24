@@ -100,6 +100,7 @@ $(document).ready(function () {
       $("#modal1").modal('close');
     }
   });
+  
 })
 
 //function to grab user's cnty search choice
@@ -204,11 +205,7 @@ var getResults = function (cntyName) {
   var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cntyName + "&limit=500";
   fetch(resultsApiUrl)
     .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      } else {
-        $('#modal3').modal('open');
-      }
+      return response.json();
     })
     .then(function (data) {
       dataBaseInfo = data.result.records;
@@ -275,9 +272,9 @@ var getResults = function (cntyName) {
               }
             }]
           }
-        }
-      });
+      }
     });
+  });
 }
 
 //FUNCTION to convert cntyName into Long/Lat coordinates

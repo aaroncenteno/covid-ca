@@ -1,3 +1,4 @@
+/* Color Palette */
 :root {
     --primary-color: #006064;
     --secondary-color: #80cbc4;
@@ -7,10 +8,12 @@
     --senary-color: #72a1e7;
 }
 
+/* Set Font */
 body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Header Styling */
 .header {
     background-color: var(--primary-color);
     height: 80px;
@@ -106,15 +109,9 @@ aside {
 }
 
 /* Facilities Container */
-.facilities-header,
-.covid-information-header {
-    /* margin-top: 60px; */
+.facilities-header {
     margin-left: 22px;
     color: var(--quinary-color);
-}
-
-.covid-information-header {
-    margin-top: 30px;
 }
 
 .card-container {
@@ -151,13 +148,17 @@ aside {
     border-radius: 10px;
 }
 
+/* Facilities Limit link */
 .limit-text {
     padding-left: 20px;
 }
 
+/* Covid Information and Symptoms Section */
 .covid-information-header {
     color: var(--quaternary-color);
     display: inline-block;
+    margin-top: 30px;
+    margin-left: 22px;
 }
 
 .covid-information {
@@ -189,6 +190,7 @@ aside {
     list-style-type: disc;
 }
 
+/* Modal Styling */
 .modal {
     background-color: var(--primary-color);
 }
@@ -206,11 +208,12 @@ input {
     display: none;
 }
 
+/* iframe in Map Modal */
 iframe {
     width: 51vw;
 }
 
-
+/* Media Query for 995px */
 @media only screen and (max-width: 995px){
     aside {
         text-align: center;
@@ -294,6 +297,7 @@ iframe {
     }
 }
 
+/* Media Query for 775px */
 @media only screen and (max-width: 775px) {
 
     .card-container {
@@ -346,6 +350,7 @@ iframe {
     }
 }
 
+/* Media Query for 600px */
 @media only screen and (max-width: 600px) {
     .site-title {
         width: 100%;
