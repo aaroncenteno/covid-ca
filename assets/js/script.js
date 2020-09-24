@@ -1,14 +1,14 @@
 var cardAction = document.querySelector(".card-action");
 var cardContainer = document.querySelector(".card-container");
 var chartEl = document.querySelector("#chart-container");
-var cities = [];
-var cityCasesEl = document.querySelector(".city-cases");
-var cityDeathsEl = document.querySelector(".city-deaths");
-var cityHeaderEl = document.querySelector(".city-header");
-var cityInputEl = document.querySelector("#city-search");
-var cityList = document.querySelector(".collection");
-var cityName = cityInputEl.value.trim();
-var currentCity = document.querySelector(".current-city");
+var cnties = [];
+var cntyCasesEl = document.querySelector(".cnty-cases");
+var cntyDeathsEl = document.querySelector(".cnty-deaths");
+var cntyHeaderEl = document.querySelector(".cnty-header");
+var cntyInputEl = document.querySelector("#cnty-search");
+var cntyList = document.querySelector(".collection");
+var cntyName = cntyInputEl.value.trim();
+var currentcnty = document.querySelector(".current-cnty");
 var dataBaseInfo = [];
 var deleteButtonEl = document.querySelector("#clear-storage-btn")
 var facilitiesHeader = document.querySelector(".facilities-header");
@@ -18,9 +18,10 @@ var navContent = document.querySelector(".modal-content");
 var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
 var searchButtonEl = document.querySelector("#searchbutton");
+var instance = M.Modal.getInstance("#modal3");
 
 
-var cityNames = {
+var cntyNames = {
   "Alameda": null,
   "Alpine": null,
   "Amador": null,
@@ -88,122 +89,133 @@ $(document).ready(function () {
 
 
   $('input.autocomplete').autocomplete({
-    data: cityNames,
+    data: cntyNames,
   });
 
-  $("#city-search").on("keypress", function (e) {
+  $("#cnty-search").on("keypress", function (e) {
     if (e.which == 13) {
-      var cityInputEl = $("#city-search").val();
-      searchButtonHandler(cityInputEl);
-      $("#city-search").val("");
+      var cntyInputEl = $("#cnty-search").val();
+      searchButtonHandler(cntyInputEl);
+      $("#cnty-search").val("");
       $("#modal1").modal('close');
     }
   });
 })
 
-//function to grab user's city search choice
+//function to grab user's cnty search choice
 var searchButtonHandler = function (event) {
-  //prevent browser from sending user's input data to a URL
-  // event.preventDefault;
-  //get value
-  var cityName = cityInputEl.value.trim();
-  var splitStr = cityName.toLowerCase().split(' ');
+
+  //get search input value
+  var cntyName = cntyInputEl.value.trim();
+  var splitStr = cntyName.toLowerCase().split(' ');
+
   for (var i = 0; i < splitStr.length; i++) {
     splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
   }
-  // Directly return the joined string
-  cityName = splitStr.join(' ');
 
-  //add cityName to list
-  if (cityNames[cityName] === null) {
-    //reset cityInput
+  // Directly return the joined string
+  cntyName = splitStr.join(' ');
+
+  //add cntyName to list
+  if (cntyNames[cntyName] === null) {
+
+    //reset cntyInput
+    $("#cnty-search").val("");
     cardContainer.innerHTML = "";
     chartEl.innerHTML= "";
-    appendCity(cityName);
+    appendcnty(cntyName);
+
     //add to local storage
-    saveCity(cityName);
-    getCoordinates(cityName);
-    getResults(cityName);
-    // displayWarning(cityName);
-  }
+    savecnty(cntyName);
+    getCoordinates(cntyName);
+    getResults(cntyName);
+  } 
+
+  // Create Chart Element and Append 
   var myChartEl = document.createElement("canvas");
     myChartEl.id = "myChart";
     chartEl.appendChild(myChartEl);
 };
 
-var searchHistory = function (cityName) {
+// Click on Search History Items and Load to Page
+var searchHistory = function (cntyName) {
   
-  if (cityName) {
-    cityInputEl.value = "";
+  if (cntyName) {
+    cntyInputEl.value = "";
     cardContainer.textContent = "";
     chartEl.innerHTML = "";
-    getCoordinates(cityName);
-    getResults(cityName);
+    getCoordinates(cntyName);
+    getResults(cntyName);
     
   }
+
+  // Create Chart Element and Append
   var myChartEl = document.createElement("canvas");
     myChartEl.id = "myChart";
     chartEl.appendChild(myChartEl);
-    
-  // displayWarning(cityName);
 };
 
-//function to delete city history
+//function to delete county history list
 var deleteButtonHandler = function () {
-  var cityItem = $(".collection-item");
-  cityItem.remove();
-  cities = [];
-  localStorage.setItem("cities", JSON.stringify(cities));
+  var cntyItem = $(".collection-item");
+  cntyItem.remove();
+  cnties = [];
+  localStorage.setItem("cnties", JSON.stringify(cnties));
 }
 
-//function to add city to list
-var appendCity = function (cityName) {
-  if (cities.indexOf(cityName) === -1) {
+//function to add county to list
+var appendcnty = function (cntyName) {
+  if (cnties.indexOf(cntyName) === -1) {
+
     //append to list
-    var cityItem = document.createElement("li");
-    cityItem.classList = "collection-item";
-    cityItem.textContent = cityName;
-    cityList.appendChild(cityItem);
+    var cntyItem = document.createElement("li");
+    cntyItem.classList = "collection-item";
+    cntyItem.textContent = cntyName;
+    cntyList.appendChild(cntyItem);
   }
 }
 
-//function to add city to local storage
-var saveCity = function (cityName) {
+//function to add county to local storage
+var savecnty = function (cntyName) {
+
   //array for old searches
-  if (cities.indexOf(cityName) === -1) {
-    cities.push(cityName);
-    localStorage.setItem("cities", JSON.stringify(cities));
+  if (cnties.indexOf(cntyName) === -1) {
+    cnties.push(cntyName);
+    localStorage.setItem("cnties", JSON.stringify(cnties));
   }
 };
 
-//function to load cities from local storage on page refresh
-var loadCity = function () {
-  cities = JSON.parse(localStorage.getItem("cities"));
-  if (cities === null) {
-    cities = [];
+//function to load counties from local storage on page refresh
+var loadcnty = function () {
+  cnties = JSON.parse(localStorage.getItem("cnties"));
+  if (cnties === null) {
+    cnties = [];
   };
-  for (var i = 0; i < cities.length; i++) {
-    var cityItem = document.createElement("li");
-    cityItem.classList = "collection-item";
-    cityItem.textContent = cities[i];
-    //var cityList = document.querySelector(".collection");
-    cityList.appendChild(cityItem);
+  for (var i = 0; i < cnties.length; i++) {
+    var cntyItem = document.createElement("li");
+    cntyItem.classList = "collection-item";
+    cntyItem.textContent = cnties[i];
+    cntyList.appendChild(cntyItem);
   }
 }
 
 // fetch and show Covid Case and Deaths for selected County
-var getResults = function (cityName) {
-  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cityName + "&limit=500";
+var getResults = function (cntyName) {
+  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cntyName + "&limit=500";
   fetch(resultsApiUrl)
     .then(function (response) {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        $('#modal3').modal('open');
+      }
     })
     .then(function (data) {
       dataBaseInfo = data.result.records;
       var i = data.result.records.length - 1;
-      cityHeaderEl.textContent = data.result.records[i].county;
-      cityCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
-      cityDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+      cntyHeaderEl.textContent = data.result.records[i].county;
+      cntyCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
+      cntyDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
 
       // Chart Creation
       var ctx = document.getElementById('myChart').getContext('2d');
@@ -227,13 +239,12 @@ var getResults = function (cityName) {
           } 
         }  
       }
-      
       var a = data.result.records.length - 1;
-            var dateFormat = moment(data.result.records[a].date).format("MMM");
-            date.push(dateFormat);
-            useData.push(dataBaseInfo[a].totalcountconfirmed);
-
+      var dateFormat = moment(data.result.records[a].date).format("MMM");
+      date.push(dateFormat);
+      useData.push(dataBaseInfo[a].totalcountconfirmed);
       var myChart = new Chart(ctx, {
+        // Chart Styling
         type: 'line',
         data: {
           labels: date,
@@ -247,7 +258,6 @@ var getResults = function (cityName) {
             borderWidth: 1,
           }]
         },
-
         options: {
           maintainAspectRatio: false,
           title: {
@@ -270,132 +280,114 @@ var getResults = function (cityName) {
     });
 }
 
-//FUNCTION to convert CITYNAME into Long/Lat coordinates
-var getCoordinates = function (cityName) {
-  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "county" + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+//FUNCTION to convert cntyName into Long/Lat coordinates
+var getCoordinates = function (cntyName) {
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cntyName + "county" + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
   fetch(coordinatesApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      var cityLatitude = data.results[0].geometry.location.lat;
-      var cityLongitude = data.results[0].geometry.location.lng;
-      getTestSites(cityLatitude, cityLongitude, cityName);
+      var cntyLatitude = data.results[0].geometry.location.lat;
+      var cntyLongitude = data.results[0].geometry.location.lng;
+      getTestSites(cntyLatitude, cntyLongitude, cntyName);
     })
 };
 
 
-//hardcoding testing site API until we have a drop down select menu for city
-var getTestSites = function (cityLatitude, cityLongitude, cityName) {
-  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cityLatitude + "," + cityLongitude + "&limit=5";
-  // console.log(cityName)
+//Function to fetch test sites using lat and lng; Create Testing Facilities Cards
+var getTestSites = function (cntyLatitude, cntyLongitude, cntyName) {
+  var testingApiUrl = "https://discover.search.hereapi.com/v1/discover?apikey=X0SijTp9QmtmfIHB8-dU1wKqKEFl9qFxGxhIhiG1_b0&q=Covid&at=" + cntyLatitude + "," + cntyLongitude + "&limit=5";
   fetch(testingApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      // console.log(data.items[0].address.county);
       cardContainer.innerHTML = "";
       for (var i = 0; i < 5; i++) {
+
         //add testing center title to cards, add testing address to cards
         var cardTitle = document.createElement("span");
         var cardContent = document.createElement("div");
         var card = document.createElement("div");
-        var cardAddress = document.createElement("a");
-        
+        var cardAddress = document.createElement("a");   
         var cardBody = document.createElement("div");
-        facilitiesHeader.classList.remove("hide");
-        currentCity.classList.remove("hide");
-        cardBody.classList = "card-action";
-        cardAddress.classList = "facility-address modal-trigger";
-        cardAddress.val = data.items[i].position.lat + "," + data.items[i].position.lng;
-        cardAddress.id = "facility-address";
-        if (data.items[i].address.houseNumber) {
-        cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
-        } else {
-          // cardAddress.val = cityLatitude, cityLongitude;
-          // console.log(cardAddress.val);
-          cardAddress.textContent = data.items[i].address.street + ", " + data.items[i].address.county + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
-        }
         var cardEl=document.createElement("div");
         var cardLat=document.createElement("a");
-        cardEl.classList = "hide"
+
+        // Handles Undefined House Numbers and Streets by Removing from Text Content
+        if (data.items[i].address.houseNumber) {
+        cardAddress.textContent = data.items[i].address.houseNumber + " " + data.items[i].address.street + ", " + data.items[i].address.city + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        } else if (data.items[i].address.street) {
+          cardAddress.textContent = data.items[i].address.street + ", " + data.items[i].address.city + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        } else {
+          cardAddress.textContent = data.items[i].address.city + ", " + data.items[i].address.state + " " + data.items[i].address.postalCode;
+        }
+
+        // Continue Attributes of Card
+        facilitiesHeader.classList.remove("hide");
+        currentcnty.classList.remove("hide");
+        cardBody.classList = "card-action";
+        cardAddress.classList = "facility-address modal-trigger";
+        cardAddress.id = "facility-address";
+        // Places Hidden Lat and Lng For Later Consumption in the Modal
+        cardEl.classList = "hide";
         cardLat.textContent=data.items[i].position.lat + "," + data.items[i].position.lng;
-        // console.log(cardLat.textContent);
-        cardContent.appendChild(cardEl);
-        cardEl.appendChild(cardLat);
         cardAddress.setAttribute("href", "#modal2");
         cardTitle.classList = "card-title";
         cardTitle.textContent = data.items[i].title.split(":")[1];
         cardContent.classList = "card-content white-text";
         card.classList = "card darken-1 col s12 m4 offset-m1 l2";
-        //navHeader.textContent=faciltyName.textContent;
-        //append card title and address to the page
+
+        // Append to Display Created Card
+        cardContent.appendChild(cardEl);
+        cardEl.appendChild(cardLat);
         cardContent.appendChild(cardTitle);
         card.appendChild(cardContent);
         cardBody.appendChild(cardAddress);
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
       };
-
     })
+    // Load Link Container to Show All Facilities
     .then(function () {
+      var limitText = document.createElement("p");
+      var linkEl = document.createElement("a");
+
       // add text to warning container
       limitWarningEl.innerHTML = "";
       limitWarningEl.classList.remove("hide");
-      var limitText = document.createElement("p")
-      limitText.textContent = "To see all " + cityName + " County testing facilities, click ";
+      limitText.textContent = "To see all " + cntyName + " County testing facilities, click ";
       limitText.classList =  "limit-text";
-      var linkEl = document.createElement("a");
       linkEl.textContent = "here";
-      linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);
+      linkEl.setAttribute("href", "all_county_facilities.html?&cntyName=" + [cntyName]);
       
       // append to warning container
       limitText.appendChild(linkEl);
       limitWarningEl.appendChild(limitText);
    })
+
     // Set Data for Embedded Map and Navigate Button
     $(document).on("click", ".facility-address", function() {
-    // console.log($(this.parentElement.parentElement.children[0].children[0].innerHTML).text());
     var latLng = $(this.parentElement.parentElement.children[0].children[0].innerHTML).text();
-    var mapFacility=$(this.parentElement.parentElement.children[0].children[1]).text();
-    navHeader.textContent=mapFacility;
+    var mapFacility = $(this.parentElement.parentElement.children[0].children[1]).text();
+    
+    // To Display Facility In Modal
+    navHeader.textContent = mapFacility;
+
+    // Set Attributes of Buttons and Map
     navBtn.setAttribute("target", "_blank");
     navBtn.setAttribute("href", "https://www.google.com/maps/search/?api=1&query=" + latLng);
     navMap.setAttribute("src", "https://www.google.com/maps/embed/v1/place?q=" + latLng + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo");
-    // console.log(cardAddress.val);
     });
-    
 }
 
-// // Construct link to all county facilities
-// var displayWarning = function(cityName) {
-  
-//   // console.log(cityName)
-//   // add text to warning container
-//   limitWarningEl.classList.remove("hide");
-//   var limitText = document.createElement("p")
-//   limitText.textContent = "To see all " + cityName + " County" + " testing facilities, click ";
-//   limitText.classList =  "limit-text";
-//   var linkEl = document.createElement("a");
-//   linkEl.textContent = "here";
-//   linkEl.setAttribute("href", "all_county_facilities.html?&cityName=" + [cityName]);d .
-  
-//   // append to warning container
-//   limitText.appendChild(linkEl);
-//   limitWarningEl.appendChild(limitText);
-// };
-
-
+// On Click History Load County to Page
 $(document).on("click", ".collection-item", function () {
-  getCoordinates($(this).text());
-  getResults($(this).text());
-});
-
-$(".collection").on("click", "li", function () {
   searchHistory($(this).text());
 });
 
+// Search Button and Delete Button Even Listener
 searchButtonEl.addEventListener("click", searchButtonHandler);
 deleteButtonEl.addEventListener("click", deleteButtonHandler);
-loadCity()
+loadcnty();

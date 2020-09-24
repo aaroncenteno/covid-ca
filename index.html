@@ -27,15 +27,15 @@
 
   <!-- Content Container -->
   <div class="row">
-    <!-- Add City and Searched City History -->
+    <!-- Add cnty and Searched cnty History -->
     <aside class="col s12 m8 offset-m2 l2">
-      <!-- Add City Button -->
-      <button id="add-city-btn" class="waves-effect waves-light btn search-btn modal-trigger" href="#modal1">
+      <!-- Add cnty Button -->
+      <button id="add-cnty-btn" class="waves-effect waves-light btn search-btn modal-trigger" href="#modal1">
         <i class="fas fa-search-plus"></i> Add County
       </button>
-      <!-- List of Searched Cities -->
+      <!-- List of Searched cnties -->
 
-      <ul class="collection city-list">
+      <ul class="collection cnty-list">
         <!-- <li class="collection-item">Los Angeles</li> -->
       </ul>
 
@@ -46,15 +46,15 @@
       </button>
     </aside>
 
-    <!-- Searched City Container -->
-    <div class=" hide current-city col s12 m12 l10">
-      <!-- City Statistics -->
-      <div class="city-stats col s12 m12 l4">
-        <h3 class="city-header"></h3>
-        <p class="city-cases"></p>
-        <p class="city-deaths"></p>
+    <!-- Searched cnty Container -->
+    <div class=" hide current-cnty col s12 m12 l10">
+      <!-- cnty Statistics -->
+      <div class="cnty-stats col s12 m12 l4">
+        <h3 class="cnty-header"></h3>
+        <p class="cnty-cases"></p>
+        <p class="cnty-deaths"></p>
       </div>
-      <!-- City Chart -->
+      <!-- cnty Chart -->
       <div  id="chart-container" class="stats-chart col s12 m12 l7">
         <canvas id="myChart"></canvas>
       </div>
@@ -142,7 +142,7 @@
       <div class="modal-content">
         <h4>Enter a county in California:</h4>
         <div class="input-field">
-          <input type="text" id="city-search" class="autocomplete">
+          <input type="text" id="cnty-search" class="autocomplete">
         </div>
       </div>
       <div class="modal-footer">

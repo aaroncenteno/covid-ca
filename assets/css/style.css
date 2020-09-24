@@ -31,7 +31,7 @@ aside {
     padding: 20px;
 }
 
-.city-list {
+.cnty-list {
     height: 320px;
     overflow: hidden; 
     overflow-y: scroll;
@@ -71,29 +71,29 @@ aside {
 
 /* Aside Styling Ends */
 
-/* Searched City Styling */
+/* Searched cnty Styling */
 
-.city-stats {
+.cnty-stats {
     padding-left: 50px;
 }
 
-.city-header {
+.cnty-header {
     font-weight: bold;
     font-size: 50px;
 }
 
-.city-header,
-.city-cases {
+.cnty-header,
+.cnty-cases {
     color: var(--quinary-color);
 }
 
-.city-cases,
-.city-deaths {
+.cnty-cases,
+.cnty-deaths {
     padding-top: 10px;
     font-size: 25px;
 }
 
-.city-deaths {
+.cnty-deaths {
     color: var(--quaternary-color);
 }
 
@@ -217,11 +217,11 @@ iframe {
         margin-left: 150px;
     }
 
-    .city-list {
+    .cnty-list {
         height: 200px;
     }
 
-    .city-stats {
+    .cnty-stats {
         text-align: center;
     }
 
@@ -351,7 +351,7 @@ iframe {
         width: 100%;
     }
 
-    .city-list {
+    .cnty-list {
         text-align: center;
     }
     
