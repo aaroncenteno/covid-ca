@@ -1,0 +1,419 @@
+/* Color Palette */
+:root {
+    --primary-color: #006064;
+    --secondary-color: #80cbc4;
+    --tertiary-color: #c5339ee7;
+    --quaternary-color: #860c66;
+    --quinary-color: #0d47a1;
+    --senary-color: #72a1e7;
+}
+
+/* Set Font */
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Header Styling */
+.header {
+    background-color: var(--primary-color);
+    height: 80px;
+    padding-top: 10px;
+}
+
+#coronaimage {
+    max-height: 50px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, .5);
+    padding-top: 0px;
+    padding-right: 15px;
+
+}
+
+/* Aside Styling */
+aside {
+    padding: 20px;
+}
+
+.cnty-list {
+    height: 320px;
+    overflow: hidden; 
+    overflow-y: scroll;
+}
+
+.search-btn {
+    margin-top: 20px;
+    background-color: var(--secondary-color);
+    color: var(--quinary-color);
+}
+
+.search-btn,
+.clear-btn,
+.list-group {
+    width: 100%;
+}
+
+.collection-item:hover {
+    z-index: 1;
+    color:#495057 ;
+    text-decoration: none;
+    background-color:var(--secondary-color);
+    transition: 0.5s;
+}
+
+.clear-btn {
+    background-color: var(--quaternary-color);
+}
+
+.clear-btn:hover {
+    background-color: var(--tertiary-color) ;
+}
+
+.clear-btn:focus {
+    background-color: var(--quaternary-color);
+}
+
+/* Aside Styling Ends */
+
+/* Searched cnty Styling */
+
+.cnty-stats {
+    padding-left: 50px;
+}
+
+.cnty-header {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.cnty-header,
+.cnty-cases {
+    color: var(--quinary-color);
+}
+
+.cnty-cases,
+.cnty-deaths {
+    padding-top: 10px;
+    font-size: 25px;
+}
+
+.cnty-deaths {
+    color: var(--quaternary-color);
+}
+
+.stats-chart {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    height: 450px;
+    width: 80vw;
+}
+
+/* Facilities Container */
+.facilities-header {
+    margin-left: 22px;
+    color: var(--quinary-color);
+}
+
+.card-container {
+    display: flex;
+    padding-right: 40px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+.card {
+    float: right;
+    background-color: var(--primary-color);
+    border: var(--secondary-color) solid 5px;
+    border-radius: 10px;
+}
+
+.card-content {
+    padding: 20px 0 0 0 !important;
+    text-align: center;
+}
+
+#facility-address {
+    color: var(--secondary-color);
+}
+
+#limit-warning {
+    background-color: var(--primary-color);
+    font-size: 30px;
+    color: white;
+    height: auto;
+    margin-left: 38px;
+    margin-right: 36px;
+    border: var(--secondary-color) solid 5px;
+    border-radius: 10px;
+}
+
+/* Facilities Limit link */
+.limit-text {
+    padding-left: 20px;
+}
+
+/* Covid Information and Symptoms Section */
+.covid-information-header {
+    color: var(--quaternary-color);
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 22px;
+}
+
+.covid-information {
+    display: flex;
+    margin-right: 100px;
+    padding-top: 50px;
+}
+
+.covid-description,
+.covid-symptoms,
+.covid-emergency {
+    background-color: var(--quaternary-color);
+    color: white;
+    border: var(--tertiary-color) solid 5px;
+    border-radius: 10px;
+}
+
+.covid-description {
+    font-size: 25px;
+}
+
+.covid-symptoms,
+.covid-emergency {
+    font-size: 20px;
+}
+
+.symptoms-list {
+    font-size: 16px;
+    list-style-type: disc;
+}
+
+/* Modal Styling */
+.modal {
+    background-color: var(--primary-color);
+}
+
+.modal-content,
+input {
+    color: white;
+}
+
+.modal-btn {
+    background-color: var(--secondary-color);
+}
+
+.modal-btn:focus {
+    display: none;
+}
+
+/* iframe in Map Modal */
+iframe {
+    width: 51vw;
+}
+
+/* Media Query for 995px */
+@media only screen and (max-width: 995px){
+    aside {
+        text-align: center;
+        margin-left: 150px;
+    }
+
+    .cnty-list {
+        height: 200px;
+    }
+
+    .cnty-stats {
+        text-align: center;
+    }
+
+    .stats-chart {
+        margin-top: 50px;
+    }
+
+    #limit-warning {
+        height: auto;
+    }
+
+    .facilities-header {
+        display: inline-block;
+        margin-left: 40px;
+    }
+
+    .card-container {
+        display: inline-block;
+        padding-left: 50px;
+        width: 95%;
+    }
+
+    .card {
+        margin: 20px;
+        height: 450px;
+        width: 35% !important;
+        font-size: 14px;
+    }
+
+    .card-content {
+        text-align: center;
+        padding-left: 0px !important;
+    }
+
+    .card-title {
+        padding-left: 0px;
+    }
+
+    .stats-chart {
+        height: 60vh;
+        width: 80vw;
+    }
+
+    .covid-description,
+    .covid-symptoms,
+    .covid-emergency {
+        margin-top: 20px;
+        width: 100% !important;
+    }
+
+    .covid-information-header {
+        margin-left: 90px;
+    }
+
+    .covid-information {
+        margin: 0px;
+        width: 80%;
+        display: inline-block;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3 {
+        width: 80%;
+        margin-left: 100px;
+    }
+
+    iframe {
+        width: 75vw;
+    }
+}
+
+/* Media Query for 775px */
+@media only screen and (max-width: 775px) {
+
+    .card-container {
+        display: inline-block;
+        width: 92vw;
+    }
+
+    .stats-chart {
+        height: 40vh;
+        width: 715px;
+        margin-left: 200px;
+    }
+
+    .card-container {
+        padding: 0 0 0 30px;
+    }
+
+    .card {
+        height: 450px;
+        width: 35% !important;
+    }
+
+    .covid-information {
+        display: inline-block;
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 72vw;
+    }
+
+    .covid-information-header {
+        display: inline-block;
+        margin-left: 90px;
+        width: 70vw;
+    }
+
+    #limit-warning {
+        height: auto;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3 {
+        width: 80%;
+        margin-left: 50px;
+    }
+
+    iframe {
+        height: 40vh;
+        width: 72vw;
+    }
+}
+
+/* Media Query for 600px */
+@media only screen and (max-width: 600px) {
+    .site-title {
+        width: 100%;
+    }
+
+    .cnty-list {
+        text-align: center;
+    }
+    
+    .stats-chart {
+        height: 40vh;
+        width: 8
+        0vw;
+    }
+    .facilities-header {
+        margin: 0px;
+        margin-top: 30px;
+    }
+
+    .card-container{
+        margin: 0px;
+        padding: 0 0 0 40px;
+    }
+
+    .card {
+        height: auto;
+        width: 100% !important;
+    }
+
+    #limit-warning {
+        
+        font-size: 14px;
+    }
+
+    .limit-text {
+        padding-top: 10px;
+    }
+
+    .covid-description,
+    .covid-symptoms,
+    .covid-emergency {
+        width: 100%;
+    }
+
+    .covid-information,
+    .covid-information-header {
+        margin-top: 15px;
+        margin-right: 0px;
+        margin-left: 20px;
+        padding-top: 0px;
+        display: inline-block;
+        width: 90%;
+    }
+
+    #modal1,
+    #modal2,
+    #modal3{
+        width: 80%;
+        margin-left: 40px;
+    }
+
+    iframe {
+        height: 30vh;
+        width: 68vw;
+    }
+}
