@@ -89,6 +89,10 @@ input {
     display: none;
 }
 
+iframe {
+    width: 51vw;
+}
+
 
 @media only screen and (max-width: 995px) {
 
@@ -143,7 +147,7 @@ input {
 
     iframe {
         height: 40vh;
-        width: 82vw;
+        width: 72vw;
     }
 }
 

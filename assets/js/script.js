@@ -117,6 +117,7 @@ var searchButtonHandler = function (event) {
   //add cityName to list
   if (cityNames[cityName] === null) {
     //reset cityInput
+    $("#city-search").val("");
     cardContainer.innerHTML = "";
     chartEl.innerHTML= "";
     appendCity(cityName);
