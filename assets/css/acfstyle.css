@@ -93,11 +93,9 @@ iframe {
     width: 51vw;
 }
 
-
 @media only screen and (max-width: 995px) {
-
-    .cnty-container {
-        display: inline-bcntyk;
+    .loc-container {
+        display: inline-block;
     }
 
     .cnty {
@@ -122,11 +120,12 @@ iframe {
 }
 
 @media only screen and (max-width: 775px) {
-    .cnty-container {
-        display: inline-bcntyk;
+  
+    .loc-container {
+        display: inline-block;
     }
 
-    .cnty-container {
+    .loc-container {
         margin-left: 0
     }
 
@@ -173,6 +172,7 @@ iframe {
     .cnty {
         height: 275px;
     }
+
 
     .cnty-item {
         height: auto;
