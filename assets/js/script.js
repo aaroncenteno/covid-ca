@@ -19,6 +19,8 @@ var navHeader = document.querySelector(".facility-name");
 var navMap = document.querySelector("#nav-map");
 var searchButtonEl = document.querySelector("#searchbutton");
 var instance = M.Modal.getInstance("#modal3");
+var apikey = 'f5654ab6-438a-4c58-a1ff-c927dde0f534'
+var currentDate = moment().format("L");
 
 
 var cntyNames = {
@@ -202,58 +204,79 @@ var loadcnty = function () {
 
 // fetch and show Covid Case and Deaths for selected County
 var getResults = function (cntyName) {
-  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=926fd08f-cc91-4828-af38-bd45de97f8c3&q=" + cntyName + "&limit=500";
+  var resultsApiUrl = "https://data.ca.gov/api/3/action/datastore_search?resource_id=6a1aaf21-2a2c-466b-8738-222aaceaa168&q=" + cntyName +  '&limit=2000';
   fetch(resultsApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      dataBaseInfo = data.result.records;
       var i = data.result.records.length - 1;
-      cntyHeaderEl.textContent = data.result.records[i].county;
-      cntyCasesEl.textContent = "Covid Cases: " + data.result.records[i].totalcountconfirmed;
-      cntyDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].totalcountdeaths;
+      console.log(i)
+      dataBaseInfo = data.result.records;
+      cntyHeaderEl.textContent = data.result.records[i].area;
+      cntyCasesEl.textContent = "Covid Cases: " + data.result.records[i].cumulative_positive_tests;
+      cntyDeathsEl.textContent = "Covid Deaths: " + data.result.records[i].cumulative_deaths;
 
       // Chart Creation
       var ctx = document.getElementById('myChart').getContext('2d');
-      var useData = [];
+      var caseData = [];
+      var deathData = []
       var date = [];
       var a = moment([2020, 3]);
       var b = moment([moment().get('year'), moment().get('month')]);
       var monthCount = b.diff(a,'months');
+
       for (j = -1; j <= monthCount; j++) {
 
         // Initial Date of Covid Case Recording
         var month = moment([2020, 3, 18]).add(j, 'month');
         var lastDay = new Date((moment(month).format('YYYY')), (moment(month).format('MM')), 0);
         for  (i = 0; i < data.result.records.length; i++) {
-          var compareDate = moment(lastDay).format("YYYY-MM-DD" + "T00:00:00");
-          if (data.result.records[i].date.indexOf(compareDate) !== -1)  
+          var compareDate = moment(lastDay).format("YYYY-MM-DD");
+          if (data.result.records[i].date === compareDate)  
           {
-          var dateFormat = moment(data.result.records[i].date).format("MMM");
+          var dateFormat = moment(data.result.records[i].date).format("MMM YYYY");
           date.push(dateFormat);
-          useData.push(dataBaseInfo[i].totalcountconfirmed);
+          caseData.push(dataBaseInfo[i].cumulative_positive_tests);
+          deathData.push(dataBaseInfo[i].cumulative_deaths)
           } 
         }  
       }
-      var a = data.result.records.length - 1;
-      var dateFormat = moment(data.result.records[a].date).format("MMM");
-      date.push(dateFormat);
-      useData.push(dataBaseInfo[a].totalcountconfirmed);
+      console.log(data.result.records[i-1].date)
+      if (dataBaseInfo[i-1].date === null) {
+        date.push(moment().format('MMM YYYY'));
+        caseData.push(dataBaseInfo[i-1].cumulative_positive_tests);
+        deathData.push(dataBaseInfo[i-1].cumulative_deaths)
+      }
+      // var a = data.result.records.length - 1;
+      // var dateFormat = moment(data.result.records[a].date).format("MMM");
+      // date.push(dateFormat);
+      // caseData.push(dataBaseInfo[a].totalcountconfirmed);
       var myChart = new Chart(ctx, {
         // Chart Styling
         type: 'line',
         data: {
           labels: date,
-          datasets: [{
+          datasets: [
+            {
             label: '# of Cases',
-            data: useData,
+            data: caseData,
             backgroundColor:
               'rgba(128, 203, 196, 0.4)',
             borderColor:
               'rgba(0, 96, 100, 1)',
             borderWidth: 1,
-          }]
+          },
+          {
+            label: '# of Deaths',
+            data: deathData,
+            backgroundColor:
+              'rgba(0, 0, 0, 1`)',
+            borderColor:
+              'rgba(0, 96, 100, 1)',
+            borderWidth: 1,
+          }
+        ]
         },
         options: {
           maintainAspectRatio: false,
@@ -279,12 +302,13 @@ var getResults = function (cntyName) {
 
 //FUNCTION to convert cntyName into Long/Lat coordinates
 var getCoordinates = function (cntyName) {
-  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cntyName + "county" + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cntyName + "county" + "&key=AIzaSyBgh53SP0qCh3x-Y-ziDwxnyTeVyWTx6aI";
   fetch(coordinatesApiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data)
       var cntyLatitude = data.results[0].geometry.location.lat;
       var cntyLongitude = data.results[0].geometry.location.lng;
       getTestSites(cntyLatitude, cntyLongitude, cntyName);

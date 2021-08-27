@@ -40,7 +40,7 @@ var listFacilities = function (cntyName) {
 
 //FUNCTION to convert cntyName into Long/Lat coordinates
 var getCoordinates = function (cntyName) {
-  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cntyName + "county" + "&key=AIzaSyAbDIvcfoHMHKqc3Qo-TB3OGNGoRBGTUJo";
+  var coordinatesApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cntyName + "county" + "&key=AIzaSyBgh53SP0qCh3x-Y-ziDwxnyTeVyWTx6aI";
   fetch(coordinatesApiUrl)
     .then(function (response) {
       return response.json();
