@@ -1,3 +1,4 @@
+var note = 'new note'
 var cardAction = document.querySelector(".card-action");
 var cardContainer = document.querySelector(".card-container");
 var chartEl = document.querySelector("#chart-container");
